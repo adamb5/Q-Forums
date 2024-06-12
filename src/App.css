@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
 .App {
   text-align: center;
   background-color: #020f2fe3;
@@ -8,13 +10,13 @@
 
 .title {
   font-size: 75px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Poppins", sans-serif;
   color: white;
   margin-top: 3%;
   align-items: start;
   justify-content: start;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 200;
   text-shadow: 4px 6px 6px #000000;
 }
 
