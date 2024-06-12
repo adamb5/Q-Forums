@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 import SearchBar from "./components/SearchBar";
 import Navbar from "./components/NavBar";
 
 function App() {
-  useEffect (() => {
-    document.title = "Q-Forums"
-  }, []);
+  // useEffect (() => {
+  //   document.title = "Q-Forums"
+  // }, []);
 
   return (
     <div className="App">
