@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamb5/Q-Forums.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adamb5/Q-Forums/issues"
+  },
+  "homepage": "https://github.com/adamb5/Q-Forums#readme",
+  "devDependencies": {},
+  "description": ""
+}
