@@ -18,15 +18,20 @@ function App() {
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/"
+            element={
+              <div className="App">
+                <h1 className="title">Q-Forums</h1>
+                <SearchBar setResults={setResults} />
+                <Results results={results} />
+              </div>
+            }
+          />
 
           {/* Add other routes here as needed */}
         </Routes>
       </Router>
-      <div className="App">
-        <h1 className="title">Q-Forums</h1>
-        <SearchBar setResults={setResults} />
-        <Results results={results} />
-      </div>
     </React.Fragment>
   );
 }
