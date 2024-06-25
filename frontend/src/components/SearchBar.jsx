@@ -4,6 +4,14 @@ import { faSearch } from "@fortawesome/fontawesome-free-solid";
 
 import "./SearchBar.css";
 
+function searchHandler(event){
+  event.preventDefault();
+  console.log("made it to event handler");
+       fetch('http://localhost:5000/stack/getans/mac')
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+ };
+ 
 const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
 
@@ -30,7 +38,7 @@ const SearchBar = ({ setResults }) => {
 
   return (
     <div className="wrap">
-      <form className="search">
+      <form className="search" onSubmit={(searchHandler)}>
         <input
           type="text"
           className="searchTerm"
