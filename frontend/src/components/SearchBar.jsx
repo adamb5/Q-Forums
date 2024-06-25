@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/fontawesome-free-solid";
+import { Link } from "react-router-dom";
 
 import "./SearchBar.css";
 
@@ -28,6 +29,10 @@ const SearchBar = ({ setResults }) => {
     fetchData(value);
   };
 
+  const handleSubmit = () => {
+    handleChange(input);
+  };
+
   return (
     <div className="wrap">
       <form className="search">
@@ -38,9 +43,11 @@ const SearchBar = ({ setResults }) => {
           value={input}
           onChange={(e) => handleChange(e.target.value)}
         />
-        <button type="submit" className="searchButton">
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
+        <Link to="/results">
+          <button type="submit" className="searchButton" onClick={handleSubmit}>
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+        </Link>
       </form>
     </div>
   );
