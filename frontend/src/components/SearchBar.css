@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-/*
 body{
   background: #f2f2f2;
   font-family: 'Open Sans', sans-serif;
@@ -45,7 +44,7 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
 }
-*/
+
 /*
 .wrap{
   width: 50%;
@@ -55,7 +54,7 @@ body{
   align-items: center;
   transform: translate(-50%, -50%);
 }
-*/
+
 
 .wrap {
   display: flex;
@@ -93,3 +92,5 @@ body{
 .searchButton:hover {
   background: #21618C;
 }
+
+*/

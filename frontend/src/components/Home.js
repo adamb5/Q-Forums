@@ -11,18 +11,23 @@ const Home = () => {
 export default Home;
 */
 
-import React from 'react';
-import './Home.css';
-import SearchBar from './SearchBar'; // Make sure the path is correct
+import React, { useState } from "react";
+import "./Home.css";
+import SearchBar from "./SearchBar"; // Make sure the path is correct
+import Results from "./Results";
 
 const Home = () => {
+  const [results, setResults] = useState([]);
+
   return (
-    <div className="home-container">
-      <h1 className="home-title">Q-Forums</h1>
-      <SearchBar />
-    </div>
+    <React.Fragment>
+      <div className="home-container">
+        <h1 className="home-title">Q-Forums</h1>
+        <SearchBar setResults={setResults} />
+      </div>
+      <Results results={results} />
+    </React.Fragment>
   );
 };
 
 export default Home;
-
