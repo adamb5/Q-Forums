@@ -5,6 +5,14 @@ import { Link } from "react-router-dom";
 
 import "./SearchBar.css";
 
+function searchHandler(event){
+  event.preventDefault();
+  console.log("made it to event handler");
+       fetch('http://localhost:5000/stack/getans/mac')
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+ };
+
 const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
 
