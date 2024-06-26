@@ -6,8 +6,8 @@ const Results = ({ results }) => {
   return (
     
     <div className="results">
-      {results.map((result, id) => {
-        return <div key={id}>{result.name}</div>;
+      {results.map((result) => {
+        return <div key={results.id}>{result.title} {result.link}</div>;
       })}
     </div>
   );

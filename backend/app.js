@@ -1,13 +1,13 @@
-//const express = require("express");
-import express from "express";
-//const bodyParser = require("body-parser");
+const express = require("express");
+// import express from "express";
+const bodyParser = require("body-parser");
 
-//const tools = require('../database/database.js')
-import { getEntry } from "../database/database.js";
+const tools = require('../database/database.js');
+// import { getEntry } from "../database/database.js";
 const app = express();
 
 app.get("/data", async (req, res) => {
-    const entries = await getEntry()
+    const entries = await tools.getEntry()
     res.send(entries)
 })
 
@@ -31,5 +31,4 @@ app.use('/stack', stackRoutes);
 
 
 app.listen(5000);
-
 
