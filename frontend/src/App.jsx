@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import SearchBar from "./components/SearchBar";
 import Results from "./components/Results";
+import ResultsPage from "./components/ResultsPage";
 
 import "./App.css";
 
@@ -13,12 +14,12 @@ function App() {
 
   return (
     <React.Fragment>
-      <Router>
+      <BrowserRouter>
         <NavBar />
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/results" element={<Results results={results}/>} />
+          <Route path="/results" element={<ResultsPage results={results} setResults={setResults}/>} />
           <Route
             path="/"
             element={
@@ -32,7 +33,7 @@ function App() {
 
           {/* Add other routes here as needed */}
         </Routes>
-      </Router>
+      </BrowserRouter>
     </React.Fragment>
   );
 }

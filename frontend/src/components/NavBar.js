@@ -1,27 +1,34 @@
 import React from "react";
 import "./NavBar.css";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
+
+  function refreshPage() {
+    setTimeout (() => {
+      window.location.reload(false);
+    }, 0.0005);
+  }
+
   return (
     <nav className="navbar">
       <div className="container">
         <div className="name">
-          <text>
+          <Link exact to="/" onClick={refreshPage}>
             Q-Forums
-          </text>
+          </Link>
         </div>
         <div className="nav-elements">
           <ul>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink exact to="/" onClick={refreshPage}>Home</NavLink>
             </li>
             
             <li>
-              <NavLink to="/about">About</NavLink>
+              <NavLink exact to="/about">About</NavLink>
             </li>
             <li>
-              <NavLink to="/contact">Contact</NavLink>
+              <NavLink exact to="/contact">Contact</NavLink>
             </li>
           </ul>
         </div>
@@ -32,62 +39,3 @@ const Navbar = () => {
 
 export default Navbar;
 
-
-
-
-/*
-import React from "react";
-import { NavLink } from "react-router-dom";
-import "./NavBar.css";
-
-const NavBar = () => {
-  return (
-    <nav className="navbar">
-      <div className="container">
-        <div className="name">
-          <span>Q-Forums</span>
-        </div>
-        <div className="nav-elements">
-          <ul>
-            <li>
-              <NavLink exact to="/" activeClassName="active">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/blog" activeClassName="active">
-                Blog
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/projects" activeClassName="active">
-                Projects
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/about" activeClassName="active">
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact" activeClassName="active">
-                Contact
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-};
-
-export default NavBar;
-*/
-
-
-/*           <li>
-              <NavLink to="/blog">Blog</NavLink>
-            </li>
-            <li>
-              <NavLink to="/projects">Projects</NavLink>
-            </li> */

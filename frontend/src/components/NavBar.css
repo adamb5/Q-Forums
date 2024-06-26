@@ -28,6 +28,15 @@ body {
     justify-content: start;
     color: white;
     text-shadow: 4px 6px 6px #000000;
+    text-decoration: none;
+}
+
+.name a {
+  font-size: 30px;
+  justify-content: start;
+  color: white;
+  text-shadow: 4px 6px 6px #000000;
+  text-decoration: none;
 }
 
 .nav-elements ul {
