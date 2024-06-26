@@ -1,4 +1,5 @@
 const express = require("express");
+<<<<<<< HEAD
 //import express from "express";
 const bodyParser = require("body-parser");
 //import bodyParser from "body-parser";
@@ -10,6 +11,17 @@ const app = express();
 
 app.get("/data", async (req, res) => {
     const entries = await database_funct.getEntry()
+=======
+// import express from "express";
+const bodyParser = require("body-parser");
+
+const tools = require('../database/database.js');
+// import { getEntry } from "../database/database.js";
+const app = express();
+
+app.get("/data", async (req, res) => {
+    const entries = await tools.getEntry()
+>>>>>>> 24ca4b94e5427cccb363c54e5b09ab6ad30b9ae1
     res.send(entries)
 })
 
@@ -33,5 +45,4 @@ app.use('/stack', stackRoutes);
 
 
 app.listen(5000);
-
 

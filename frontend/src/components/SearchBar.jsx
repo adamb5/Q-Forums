@@ -5,13 +5,16 @@ import { Link } from "react-router-dom";
 
 import "./SearchBar.css";
 
-function searchHandler(event){
-  event.preventDefault();
-  console.log("made it to event handler");
-       fetch('http://localhost:5000/stack/getans/mac')
-      .then((response) => response.json())
-      .then((json) => console.log(json));
- };
+// function searchHandler(value){
+//   // event.preventDefault();
+//   console.log("made it to event handler");
+//        fetch(`http://localhost:5000/stack/getans/${value}`)
+//       .then((response) => response.json())
+//       .then((json) => {
+//         const results = JSON.parse(json);
+//         setResults(results);
+//       });
+//  };
 
 const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
@@ -32,9 +35,21 @@ const SearchBar = ({ setResults }) => {
       });
   };
 
+  function searchHandler(value){
+    // event.preventDefault();
+    console.log("made it to event handler");
+         fetch(`http://localhost:5000/stack/getans/${value}`)
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log(data.items);
+          const results = data.items
+          setResults(results);
+        });
+   };
+
   const handleChange = (value) => {
     setInput(value);
-    fetchData(value);
+    searchHandler(value);
   };
 
   const handleSubmit = () => {

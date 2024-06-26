@@ -2,6 +2,10 @@
   "name": "q-forums",
   "version": "1.0.0",
   "description": "Q-Forums",
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 24ca4b94e5427cccb363c54e5b09ab6ad30b9ae1
   "main": "database.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
