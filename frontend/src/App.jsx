@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import SearchBar from "./components/SearchBar";
-import Results from "./components/Results";
+// import Results from "./components/Results";
 import ResultsPage from "./components/ResultsPage";
 
 import "./App.css";
