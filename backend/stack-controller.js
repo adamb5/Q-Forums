@@ -8,25 +8,21 @@ const getFormResults = (req, res, next) => {
   );
 };
 
-let completeData = [];
+// let completeData = [];
 
-const getResult = async(request, response, next) => {
-  const tagged = request.params.tagged;
-  console.log("tagged: " + tagged);
-  try {
-    for (let i = 0; i < 150; i++) {
-      const response = await axios.get(
-        `https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&tagged=${tagged}&site=stackoverflow`
-      );
-      const newData = response.data;
-      newData.items.forEach((item) => {
-        completeData.push(item);
-      });
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
+const getResult = (request, response, next) => {
+    const tagged = request.params.tagged;
+    console.log("tagged: " + tagged);
+    axios
+        .get(`https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&tagged=${tagged}&site=stackoverflow`)
+        .then((res) => {
+            //response.send('<h1> User' + '</h1>');
+            response.json(res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    };
 
 exports.getFormResults = getFormResults;
 exports.getResult = getResult;

@@ -42,7 +42,7 @@ const SearchBar = ({ setResults }) => {
         .then((response) => response.json())
         .then((data) => {
           // console.log(data.items);
-          const results = data.items
+          const results = data.items;
           setResults(results);
         });
    };
