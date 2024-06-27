@@ -4,11 +4,15 @@ import "./Results.css";
 
 const Results = ({ results }) => {
   return (
-    
     <div className="results">
-      {results.map((result) => {
-        return <div key={results.id}>{result.title} {result.link}</div>;
-      })}
+      {results.map((result) => (
+        <div key={result.id} className="result-item">
+          <div className="result-title">{result.title}</div>
+          <a href={result.link} className="result-link">
+            {result.link}
+          </a>
+        </div>
+      ))}
     </div>
   );
 };
