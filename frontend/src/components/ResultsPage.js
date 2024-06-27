@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Results from "./Results";
 import SearchBar from "./SearchBar";
 
-const ResultsPage = ({results, setResults}) => {
-
+const ResultsPage = ({ results, setResults }) => {
   return (
     <React.Fragment>
       <SearchBar setResults={setResults} />
