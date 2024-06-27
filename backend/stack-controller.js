@@ -14,7 +14,7 @@ const getResult = (request, response, next) => {
     const tagged = request.params.tagged;
     console.log("tagged: " + tagged);
     axios
-        .get(`https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&tagged=${tagged}&site=stackoverflow`)
+        .get(`https://api.stackexchange.com//2.3/search/advanced?order=asc&sort=votes&q=${tagged}&wiki=False&site=stackoverflow`)
         .then((res) => {
             //response.send('<h1> User' + '</h1>');
             response.json(res.data);
