@@ -49,11 +49,12 @@ const SearchBar = ({ setResults }) => {
 
   const handleChange = (value) => {
     setInput(value);
-    searchHandler(value);
+    // searchHandler(value);
   };
 
   const handleSubmit = () => {
     handleChange(input);
+    searchHandler(input);
   };
 
   return (

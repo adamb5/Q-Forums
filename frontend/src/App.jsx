@@ -26,7 +26,7 @@ function App() {
               <div className="App">
                 <h1 className="title">Q-Forums</h1>
                 <SearchBar setResults={setResults} />
-                <Results results={results} />
+                {/* <Results results={results} /> */}
               </div>
             }
           />
