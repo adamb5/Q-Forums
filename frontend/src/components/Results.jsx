@@ -8,7 +8,7 @@ const Results = ({ results }) => {
       {results.map((result) => (
         <div key={result.id} className="result-item">
           <div className="result-title">{result.title}</div>
-          <a href={result.link} className="result-link">
+          <a href={result.link} target="_blank" className="result-link">
             {result.link}
           </a>
         </div>

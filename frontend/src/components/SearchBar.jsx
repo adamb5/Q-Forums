@@ -41,7 +41,7 @@ const SearchBar = ({ setResults }) => {
          fetch(`http://localhost:5000/stack/getans/${value}`)
         .then((response) => response.json())
         .then((data) => {
-          // console.log(data.items);
+          console.log(data.items);
           const results = data.items;
           setResults(results);
         });
