@@ -35,17 +35,17 @@ const SearchBar = ({ setResults }) => {
   //     });
   // };
 
-  function searchHandler(value){
+  function searchHandler(value) {
     // event.preventDefault();
     console.log("made it to event handler");
-         fetch(`http://localhost:5000/stack/getans/${value}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.items);
-          const results = data.items;
-          setResults(results);
-        });
-   };
+    fetch(`http://localhost:5000/stack/getans/${value}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.items);
+        const results = data.items;
+        setResults(results);
+      });
+  }
 
   const handleChange = (value) => {
     setInput(value);
@@ -53,8 +53,10 @@ const SearchBar = ({ setResults }) => {
   };
 
   const handleSubmit = () => {
-    handleChange(input);
-    searchHandler(input);
+    if (input != "") {
+      handleChange(input);
+      searchHandler(input);
+    }
   };
 
   return (
