@@ -47,14 +47,15 @@ const SearchBar = ({ setResults }) => {
       });
   }
 
-  const handleChange = (value) => {
-    setInput(value);
+  const handleChange = (event) => {
+    event.preventDefault();
+    setInput(event.target.value);
     // searchHandler(value);
   };
 
   const handleSubmit = () => {
     if (input != "") {
-      handleChange(input);
+      //handleChange();
       searchHandler(input);
     }
   };
@@ -67,7 +68,7 @@ const SearchBar = ({ setResults }) => {
           className="searchTerm"
           placeholder="What are you looking for?"
           value={input}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={handleChange}
         />
         <Link to="/results">
           <button type="submit" className="searchButton" onClick={handleSubmit}>
