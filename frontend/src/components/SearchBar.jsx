@@ -50,11 +50,11 @@ const SearchBar = ({ setResults }) => {
   const handleChange = (event) => {
     event.preventDefault();
     setInput(event.target.value);
-    // searchHandler(value);
+    //searchHandler(event.target.value);
   };
 
   const handleSubmit = () => {
-    if (input != "") {
+    if (input !== "") {
       //handleChange();
       searchHandler(input);
     }
