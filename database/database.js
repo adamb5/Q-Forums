@@ -5,7 +5,7 @@ const pool = mysql
   .createPool({
     host: "127.0.0.1",
     user: "root",
-    password: "Peachs12!",
+    password: "password",
     database: "qforums",
     multipleStatements: true,
   })
