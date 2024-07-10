@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/fontawesome-free-solid";
 import { Link } from "react-router-dom";
+//import axios from "axios";
 
 import "./SearchBar.css";
 
@@ -35,16 +36,41 @@ const SearchBar = ({ setResults }) => {
   //     });
   // };
 
-  function searchHandler(value) {
-    // event.preventDefault();
+  //const [value, setValue] = useState("");
+  const searchHandler = async (value) => {
+    //event.preventDefault();
     console.log("made it to event handler");
-    fetch(`http://localhost:5000/stack/getans/${value}`)
+    const response = await fetch(`http://localhost:5000/api/search`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      
+      },
+      body: JSON.stringify({ tagged: value })
+    });
+
+    await fetch(`http://localhost:5000/data`)
+      .then((response) => response.json())
+      .then((json) => {
+        const results = json;
+        console.log(results);
+        console.log(Object.keys(results).length)
+        setResults(results);
+      });
+
+    //const data = await response.json();
+    //console.log(data.items);
+    //setResults(data.items);
+
+    /*fetch(`http://localhost:5000/search`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data.items);
         const results = data.items;
         setResults(results);
-      });
+      });*/
+    //const response = await axios.post('http://localhost:5000/search', {value})
+    //console.log(response.data);
   }
 
   const handleChange = (event) => {
@@ -54,6 +80,7 @@ const SearchBar = ({ setResults }) => {
   };
 
   const handleSubmit = () => {
+    //event.preventDefault();
     if (input !== "") {
       //handleChange();
       searchHandler(input);
