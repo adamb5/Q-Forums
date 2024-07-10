@@ -11,5 +11,7 @@ router.get('/getreq', stackController.getFormResults);
 //stack api route below
 router.get('/getans/:tagged', stackController.getResult);
 
+//router.get('/data', app.getEntries());
+
 
 module.exports = router;

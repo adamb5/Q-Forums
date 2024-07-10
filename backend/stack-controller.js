@@ -23,6 +23,7 @@ const getResult = (request, response, next) => {
       .then((res) => {
         //response.send('<h1> User' + '</h1>');
         response.json(res.data);
+        //response.send(res.data);
       })
       .catch((error) => {
         console.log(error);

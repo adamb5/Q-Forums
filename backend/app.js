@@ -1,17 +1,13 @@
 const express = require("express");
 // import express from "express";
 const bodyParser = require("body-parser");
+const axios = require("axios");
 
 const tools = require("../database/database.js");
 // import { getEntry } from "../database/database.js";
 const app = express();
 
-app.get("/data", async (req, res) => {
-  const entries = await tools.getEntry();
-  res.send(entries);
-});
-
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -23,6 +19,32 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.get("/data", async (req, res) => {
+  const entries = await tools.getEntry();
+  res.send(entries);
+});
+
+app.post("/api/search", async (req, res) => {
+  const { tagged } = req.body;
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`
+  const response = await axios.get(apiUrl);
+  const posts =  response.data.items;
+
+  await tools.truncateTable();
+
+  posts.forEach(async (post) => {
+    const { question_id, creation_date, score, reputation, view_count, answer_count, link, title } = post;
+    await tools.postEntry(question_id, creation_date, score, reputation, view_count, answer_count, link, title);
+   
+  });
+  //res.status(201).send(entries);
+  res.json({ success: true, items: posts, message: 'Data inserted into the database.'});
+  //res.status(201).send(posts);
+})
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 const stackRoutes = require("./stack-routes");
 app.use("/stack", stackRoutes);
