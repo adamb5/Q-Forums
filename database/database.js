@@ -21,10 +21,10 @@ module.exports = {
     const [sql] = await pool.query(`TRUNCATE TABLE stack_exchange`);
     return sql;
   },
-  postEntry: async function (question_id, creation_date, score, reputation, view_count, answer_count, link, title) {
+  postEntry: async function (question_id, creation_date, score, reputation, view_count, answer_count, link, title, body) {
     //pool.query(`TRUNCATE TABLE stack_exchange`)
-    const [result] = await pool.query(`INSERT INTO stack_exchange (question_id, creation_date, score, reputation, view_count, answer_count, link, title) 
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?)`, [question_id, creation_date, score, reputation, view_count, answer_count, link, title]
+    const [result] = await pool.query(`INSERT INTO stack_exchange (question_id, creation_date, score, reputation, view_count, answer_count, link, title, body) 
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, [question_id, creation_date, score, reputation, view_count, answer_count, link, title, body]
       )
       return result;
   }

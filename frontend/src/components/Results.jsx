@@ -22,6 +22,7 @@ const Results = ({ results }) => {
           >
             {result.link}
           </a>
+          {/* <div>{result.body}</div> */}
         </div>
       ))}
       {visibleResults < results.length && (

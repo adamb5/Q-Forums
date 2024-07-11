@@ -27,15 +27,15 @@ app.get("/data", async (req, res) => {
 
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`
   const response = await axios.get(apiUrl);
   const posts =  response.data.items;
 
   await tools.truncateTable();
 
   posts.forEach(async (post) => {
-    const { question_id, creation_date, score, reputation, view_count, answer_count, link, title } = post;
-    await tools.postEntry(question_id, creation_date, score, reputation, view_count, answer_count, link, title);
+    const { question_id, creation_date, score, reputation, view_count, answer_count, link, title, body } = post;
+    await tools.postEntry(question_id, creation_date, score, reputation, view_count, answer_count, link, title, body);
    
   });
   //res.status(201).send(entries);
