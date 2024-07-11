@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+import React from "react";
+=======
 import React, { useState } from "react";
 
+>>>>>>> e1819a8b7965527be1d04ae37275df3b8a24bcb8
 import "./Results.css";
 
 const Results = ({ results }) => {
@@ -35,3 +39,6 @@ const Results = ({ results }) => {
 };
 
 export default Results;
+
+
+
