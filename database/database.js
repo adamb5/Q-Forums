@@ -2,20 +2,12 @@
 const mysql = require("mysql2");
 
 const pool = mysql
-<<<<<<< HEAD
   .createConnection({
     host: "q-forums-db.cv884y2g2fxo.us-east-1.rds.amazonaws.com",
     port: "3306",
     user: "admin",
     password: "qforumspassword",
     database: "q-forums-db",
-=======
-  .createPool({
-    host: "127.0.0.1",
-    user: "root",
-    password: "password",
-    database: "qforums",
->>>>>>> 0b9561d2c3c5f281b386bc028d738544cb92aae7
     multipleStatements: true,
   });
 
