@@ -44,8 +44,6 @@ app.get("/", function(req, res){
 })
 
 
-
-
 //Database Route
 app.get("/data", async (req, res) => {
   const entries = await tools.getEntry();
