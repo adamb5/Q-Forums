@@ -9,6 +9,8 @@ const app = express();
 
 app.use(express.json());
 
+
+//CORS
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -20,6 +22,31 @@ app.use((req, res, next) => {
   next();
 });
 
+
+
+//EC2 
+const path = require('path');
+const _dirname = path.dirname("");
+const buildPath = path.join(_dirname, "../frontend/build");
+
+app.use(express.static(buildPath))
+
+app.get("/", function(req, res){
+  res.sendFile(
+    path.join(_dirname, "../frontend/build/index.html"),
+    function(err){
+      if(err){
+        res.status(500).send(err);
+      }
+    }
+  );
+
+})
+
+
+
+
+//Database Route
 app.get("/data", async (req, res) => {
   const entries = await tools.getEntry();
   res.send(entries);
