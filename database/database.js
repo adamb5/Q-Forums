@@ -2,14 +2,22 @@
 const mysql = require("mysql2");
 
 const pool = mysql
-  .createPool({
-    host: "127.0.0.1",
-    user: "root",
-    password: "Peachs12!",
-    database: "qforums",
+  .createConnection({
+    host: "q-forums-db.cv884y2g2fxo.us-east-1.rds.amazonaws.com",
+    port: "3306",
+    user: "admin",
+    password: "qforumspassword",
+    database: "q-forums-db",
     multipleStatements: true,
-  })
-  .promise();
+  });
+
+pool.connect((err) => {
+  if (err) {
+    console.log(err.message);
+    return;
+  }
+  console.log("database connected");
+});
 
 module.exports = {
   getEntry: async function () {
