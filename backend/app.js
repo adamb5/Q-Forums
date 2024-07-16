@@ -49,9 +49,11 @@ app.get("/data", async (req, res) => {
 
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
+  console.log(tagged);
   const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
+  console.log(posts);
 
   await tools.truncateTable();
 
