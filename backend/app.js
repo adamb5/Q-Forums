@@ -58,7 +58,6 @@ app.post("/api/search", async (req, res) => {
   //pool.query(`INSERT `)
 
   await tools.truncateTable();
-  console.log("table is truncated");
 
   posts.forEach(async (post) => {
     const {

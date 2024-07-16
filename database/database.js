@@ -44,6 +44,7 @@ module.exports = {
   },
   truncateTable: async function () {
     const [sql] = await pool.query(`TRUNCATE TABLE stack_exchange`);
+    console.log("table is truncated");
     return sql;
   },
   postEntry: async function (question_id, creation_date, score, reputation, view_count, answer_count, link, title, body) {
