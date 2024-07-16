@@ -1,5 +1,5 @@
 // import mysql from 'mysql2'
-const mysql = require("mysql2/promise");
+const mysql = require("mysql2");
 
 const pool = mysql
   .createConnection({
@@ -9,22 +9,24 @@ const pool = mysql
     password: "qforumspassword",
     database: "q-forums-db",
     multipleStatements: true,
-  }).catch((err) => {
+  })
+  
+  /*.catch((err) => {
     if (err) {
       console.log(err.message);
       return;
     }
     console.log("database connected");
-  });
+  });*/
 
-/*pool.getConnection((err) => {
+pool.connect((err) => {
   if (err) {
     console.log(err.message);
     return;
   }
   console.log("database connected");
 });
-console.log("works!");*/
+//console.log("works!");
 
 module.exports = {
   getEntry: async function () {
