@@ -40,7 +40,7 @@ const SearchBar = ({ setResults }) => {
   const searchHandler = async (value) => {
     //event.preventDefault();
     console.log("made it to event handler");
-    const response = await fetch(`http://52.55.106.26/api/search`, {
+    const response = await fetch(`http://localhost:5000/api/search`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
