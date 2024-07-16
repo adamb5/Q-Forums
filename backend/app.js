@@ -55,6 +55,8 @@ app.post("/api/search", async (req, res) => {
   const posts = response.data.items;
   //console.log(posts);
 
+  //pool.query(`INSERT `)
+
   await tools.truncateTable();
   console.log("table is truncated");
 

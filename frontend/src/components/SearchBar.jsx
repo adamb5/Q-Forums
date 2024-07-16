@@ -91,6 +91,7 @@ const SearchBar = ({ setResults }) => {
       <form className="search">
         <input
           type="text"
+          method= 'POST'
           className="searchTerm"
           placeholder="What are you looking for?"
           value={input}

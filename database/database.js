@@ -1,6 +1,6 @@
 // import mysql from 'mysql2'
 const mysql = require("mysql2");
-let pool;
+let pool = null;
 try {
 pool = mysql
   .createPool({
