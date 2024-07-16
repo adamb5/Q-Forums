@@ -1,24 +1,30 @@
 // import mysql from 'mysql2'
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 
 const pool = mysql
-  .createPool({
+  .createConnection({
     host: "q-forums-db.cv884y2g2fxo.us-east-1.rds.amazonaws.com",
     port: "3306",
     user: "admin",
     password: "qforumspassword",
     database: "q-forums-db",
     multipleStatements: true,
-  }).promise();
+  }).catch((err) => {
+    if (err) {
+      console.log(err.message);
+      return;
+    }
+    console.log("database connected");
+  });
 
-/*pool.connect((err) => {
+/*pool.getConnection((err) => {
   if (err) {
     console.log(err.message);
     return;
   }
   console.log("database connected");
-});*/
-console.log("works!");
+});
+console.log("works!");*/
 
 module.exports = {
   getEntry: async function () {
