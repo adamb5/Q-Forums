@@ -52,7 +52,7 @@ const SearchBar = ({ setResults }) => {
       .then((response) => response.json())
       .then((json) => {
         const results = json;
-        console.log(results);
+        //console.log(results);
         console.log(Object.keys(results).length);
         setResults(results);
       });
