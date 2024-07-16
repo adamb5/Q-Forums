@@ -41,12 +41,11 @@ const SearchBar = ({ setResults }) => {
     //event.preventDefault();
     console.log("made it to event handler");
     const response = await fetch(`http://localhost:5000/api/search`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-      
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tagged: value })
+      body: JSON.stringify({ tagged: value }),
     });
 
     await fetch(`http://localhost:5000/data`)
@@ -54,7 +53,7 @@ const SearchBar = ({ setResults }) => {
       .then((json) => {
         const results = json;
         console.log(results);
-        console.log(Object.keys(results).length)
+        console.log(Object.keys(results).length);
         setResults(results);
       });
 
@@ -71,7 +70,7 @@ const SearchBar = ({ setResults }) => {
       });*/
     //const response = await axios.post('http://localhost:5000/search', {value})
     //console.log(response.data);
-  }
+  };
 
   const handleChange = (event) => {
     event.preventDefault();

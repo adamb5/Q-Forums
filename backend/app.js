@@ -11,28 +11,23 @@ const app = express();
 
 app.use(express.json());
 
-
-
-
-//EC2 
-const path = require('path');
+//EC2
+const path = require("path");
 const _dirname = path.dirname("");
 const buildPath = path.join(_dirname, "../frontend/build");
 
-app.use(express.static(buildPath))
+app.use(express.static(buildPath));
 
-app.get("/", function(req, res){
+app.get("/", function (req, res) {
   res.sendFile(
     path.join(_dirname, "../frontend/build/index.html"),
-    function(err){
-      if(err){
+    function (err) {
+      if (err) {
         res.status(500).send(err);
       }
     }
   );
-
-})
-
+});
 
 //CORS
 app.use((req, res, next) => {
@@ -46,7 +41,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 //Database Route
 app.get("/data", async (req, res) => {
   const entries = await tools.getEntry();
@@ -55,24 +49,46 @@ app.get("/data", async (req, res) => {
 
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`;
   const response = await axios.get(apiUrl);
-  const posts =  response.data.items;
+  const posts = response.data.items;
 
   await tools.truncateTable();
 
   posts.forEach(async (post) => {
-    const { question_id, creation_date, score, reputation, view_count, answer_count, link, title, body } = post;
-    await tools.postEntry(question_id, creation_date, score, reputation, view_count, answer_count, link, title, body);
-   
+    const {
+      question_id,
+      creation_date,
+      score,
+      reputation,
+      view_count,
+      answer_count,
+      link,
+      title,
+      body,
+    } = post;
+    await tools.postEntry(
+      question_id,
+      creation_date,
+      score,
+      reputation,
+      view_count,
+      answer_count,
+      link,
+      title,
+      body
+    );
   });
   //res.status(201).send(entries);
-  res.json({ success: true, items: posts, message: 'Data inserted into the database.'});
+  res.json({
+    success: true,
+    items: posts,
+    message: "Data inserted into the database.",
+  });
   //res.status(201).send(posts);
-})
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
 
 const stackRoutes = require("./stack-routes");
 app.use("/stack", stackRoutes);
