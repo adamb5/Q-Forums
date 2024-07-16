@@ -40,7 +40,7 @@ const SearchBar = ({ setResults }) => {
   const searchHandler = async (value) => {
     //event.preventDefault();
     console.log("made it to event handler");
-    const response = await fetch(`http://52.55.106.26/api/search`, {
+    const response = await fetch(`http://q-forums.com/api/search`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const SearchBar = ({ setResults }) => {
       body: JSON.stringify({ tagged: value }),
     });
 
-    await fetch(`http://52.55.106.26/data`)
+    await fetch(`http://q-forums.com/data`)
       .then((response) => response.json())
       .then((json) => {
         const results = json;
