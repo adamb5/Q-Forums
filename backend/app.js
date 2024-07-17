@@ -1,6 +1,6 @@
 const express = require("express");
-const session = require("express-session");
-const crypto = require("crypto");
+// const session = require("express-session");
+// const crypto = require("crypto");
 // import express from "express";
 const bodyParser = require("body-parser");
 const axios = require("axios");
@@ -10,14 +10,14 @@ const tools = require("../database/database.js");
 const app = express();
 
 //Session Management
-const secretKey = crypto.randomBytes(32).toString('hex');
+// const secretKey = crypto.randomBytes(32).toString('hex');
 
-app.use(session({
-  secret: secretKey,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-}));
+// app.use(session({
+//   secret: secretKey,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: false }
+// }));
 
 app.use(express.json());
 
@@ -59,10 +59,10 @@ app.get("/data", async (req, res) => {
 
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
-  req.session.tagged = tagged;
-  const tag = req.session.tagged;
+  // req.session.tagged = tagged;
+  // const tag = req.session.tagged;
   //console.log(tagged);
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tag}&wiki=False&site=stackoverflow&filter=withbody&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`;
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
   //console.log(posts);
