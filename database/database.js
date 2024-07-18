@@ -5,10 +5,10 @@ let pool = null;
 try {
   pool = mysql
     .createPool({
-      host: process.env.DATABASE_HOST,
+      host: "q-forums-db.cv884y2g2fxo.us-east-1.rds.amazonaws.com",
       port: "3306",
       user: "admin",
-      password: process.env.DATABASE_PASSWORD,
+      password: "qforumspassword",
       database: "q-forums-db",
       multipleStatements: true,
     })
