@@ -57,12 +57,15 @@ app.get("/data", async (req, res) => {
   res.send(entries);
 });
 
+//api key stackoverflow
+const api_key = `${process.env.QFORUMS_STACKOVERFLOW_API_KEY}`;
+
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
   // req.session.tagged = tagged;
   // const tag = req.session.tagged;
   //console.log(tagged);
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_pGoKbHjsUR63zEp1CCStTP8Z4`;
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=${api_key}`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
   //console.log(posts);
