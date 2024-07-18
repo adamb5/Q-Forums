@@ -11,6 +11,11 @@
   padding: 1rem;
 }
 
+.result-item-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .result-item {
   border-bottom: 1px solid #eee;
   padding: 1rem 0;
@@ -35,10 +40,6 @@
   color: blue;
   text-decoration: none;
   word-break: break-all;
-}
-
-.result-link:hover {
-  text-decoration: underline;
 }
 
 .show-more {
@@ -68,5 +69,3 @@
   outline: none;
   box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
 }
-
-

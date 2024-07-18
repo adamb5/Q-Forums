@@ -12,18 +12,19 @@ const Results = ({ results }) => {
   return (
     <div className="results">
       {results.slice(0, visibleResults).map((result) => (
-        <div key={result.question_id} className="result-item">
-          <div className="result-title">{result.title}</div>
-          <a
-            href={result.link}
-            target="_blank"
-            rel="noreferrer"
-            className="result-link"
-          >
-            {result.link}
-          </a>
-          {/* <div>{result.body}</div> */}
-        </div>
+        <a
+          key={result.question_id}
+          href={result.link}
+          target="_blank"
+          rel="noreferrer"
+          className="result-item-link"
+        >
+          <div className="result-item">
+            <div className="result-title">{result.title}</div>
+            <div className="result-link">{result.link}</div>
+            {/* <div>{result.body}</div> */}
+          </div>
+        </a>
       ))}
       {visibleResults < results.length && (
         <div className="show-more">
@@ -35,6 +36,3 @@ const Results = ({ results }) => {
 };
 
 export default Results;
-
-
-
