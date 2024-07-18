@@ -90,6 +90,7 @@ app.post("/api/search", async (req, res) => {
       title,
       body,
     } = post;
+    const {tagged} = tagged;
     await tools.postEntry(
       question_id,
       creation_date,
