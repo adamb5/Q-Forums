@@ -90,7 +90,7 @@ app.post("/api/search", async (req, res) => {
       title,
       body,
     } = post;
-    const {tagged} = tagged;
+    const {tag} = tagged;
     await tools.postEntry(
       question_id,
       creation_date,
@@ -101,7 +101,7 @@ app.post("/api/search", async (req, res) => {
       link,
       title,
       body,
-      tagged
+      tag
     );
     console.log("THE DB POST IS WORKING");
   });
