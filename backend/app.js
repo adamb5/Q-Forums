@@ -73,6 +73,7 @@ app.post("/api/search", async (req, res) => {
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
   //console.log(posts);
+  console.log(tagged);
 
   //pool.query(`INSERT `)
 
@@ -90,7 +91,7 @@ app.post("/api/search", async (req, res) => {
       title,
       body,
     } = post;
-    const {tag} = tagged;
+    // const {tag} = tagged;
     await tools.postEntry(
       question_id,
       creation_date,
@@ -101,7 +102,8 @@ app.post("/api/search", async (req, res) => {
       link,
       title,
       body,
-      tag
+      tagged
+      // tag
     );
     console.log("THE DB POST IS WORKING");
   });
