@@ -56,7 +56,7 @@ module.exports = {
   ) {
     //pool.query(`TRUNCATE TABLE stack_exchange`)
     const [result] = await pool.query(
-      `INSERT IGNORE INTO stack_exchange (question_id, creation_date, score, reputation, view_count, answer_count, link, title, body) 
+      `INSERT INTO stack_exchange (question_id, creation_date, score, reputation, view_count, answer_count, link, title, body) 
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         question_id,
