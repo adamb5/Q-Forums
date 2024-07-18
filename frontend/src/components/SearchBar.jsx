@@ -45,7 +45,7 @@ const SearchBar = ({ setResults }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tag: value }),
+      body: JSON.stringify({ tagged: value }),
     });
 
     await fetch(`http://q-forums.com/data`)
