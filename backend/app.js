@@ -75,11 +75,12 @@ app.post("/api/search", async (req, res) => {
   const posts = response.data.items;
   
   const apiUrlNIST = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${tagged}`
-  const response2 = await axios.get(apiUrlNIST, {
+  const response2 = await axios.get(apiUrlNIST);
+  /* {
     headers: {
-      "x-api-key": "1a431999-68dd-44ad-8d4f-b06cc0bb2e82"
+      //"x-api-key": "1a431999-68dd-44ad-8d4f-b06cc0bb2e82"
     }
-  })
+  })*/
   const posts2 = response2.data.vulnerabilities;
   //console.log(posts);
   console.log(tag);
