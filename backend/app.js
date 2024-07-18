@@ -133,7 +133,7 @@ app.post("/api/search", async (req, res) => {
     const view_count = 0;
     const answer_count = 0;
     const link = "";
-    const title = JSON.parse(post.cve.descriptions).value;
+    const title = "";
     const body = JSON.stringify(post.cve.descriptions);
 
     // const {tag} = tagged;
