@@ -133,7 +133,7 @@ app.post("/api/search", async (req, res) => {
     const view_count = 0;
     const answer_count = 0;
     const link = "";
-    const title = "";
+    const title = post.cve.descriptions[0].value;
     const body = post.cve.descriptions[0].value;
 
     // const {tag} = tagged;
