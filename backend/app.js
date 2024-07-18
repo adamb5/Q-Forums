@@ -5,9 +5,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
 
+const { v4: uuidv4 } = require("uuid");
+
 const tools = require("../database/database.js");
 // import { getEntry } from "../database/database.js";
 const app = express();
+
+const random_uuid = uuidv4();
 
 //Session Management
 // const secretKey = crypto.randomBytes(32).toString('hex');
@@ -72,7 +76,7 @@ app.post("/api/search", async (req, res) => {
 
   //pool.query(`INSERT `)
 
-  await tools.truncateTable();
+  //await tools.truncateTable();
 
   posts.forEach(async (post) => {
     const {
