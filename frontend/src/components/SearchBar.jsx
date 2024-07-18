@@ -45,13 +45,19 @@ const SearchBar = ({ setResults }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tagged: value }),
+      body: JSON.stringify({ tag: value }),
     });
 
     await fetch(`http://q-forums.com/data`)
       .then((response) => response.json())
       .then((json) => {
-        const results = json;
+        const results = json.filter((data) => {
+          return (
+            value &&
+            data &&
+            data.tag.toLowerCase().includes(value)
+          )
+        });
         //console.log(results);
         console.log(Object.keys(results).length);
         setResults(results);
