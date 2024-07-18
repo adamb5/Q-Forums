@@ -65,11 +65,11 @@ app.get("/data", async (req, res) => {
 //const api_key = `${process.env.QFORUMS_STACKOVERFLOW_API_KEY}`;
 
 app.post("/api/search", async (req, res) => {
-  const { tag } = req.body;
+  const { tagged } = req.body;
   // req.session.tagged = tagged;
   // const tag = req.session.tagged;
   //console.log(tagged);
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tag}&wiki=False&site=stackoverflow&filter=withbody&key=rl_fTwPBMrkm1L3yigJUSHY6BJmY`;
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_fTwPBMrkm1L3yigJUSHY6BJmY`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
   //console.log(posts);
@@ -100,7 +100,7 @@ app.post("/api/search", async (req, res) => {
       link,
       title,
       body,
-      tag
+      tagged
     );
     console.log("THE DB POST IS WORKING");
   });
