@@ -66,6 +66,7 @@ app.get("/data", async (req, res) => {
 
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
+  const tag = tagged;
   // req.session.tagged = tagged;
   // const tag = req.session.tagged;
   //console.log(tagged);
@@ -73,7 +74,7 @@ app.post("/api/search", async (req, res) => {
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
   //console.log(posts);
-  console.log(tagged);
+  console.log(tag);
 
   //pool.query(`INSERT `)
 
@@ -102,7 +103,7 @@ app.post("/api/search", async (req, res) => {
       link,
       title,
       body,
-      tagged
+      tag
       // tag
     );
     console.log("THE DB POST IS WORKING");
