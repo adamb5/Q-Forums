@@ -118,11 +118,11 @@ app.post("/api/search", async (req, res) => {
     console.log("THE DB POST IS WORKING");
   });
   //res.status(201).send(entries);
-  res.json({
+  /*res.json({
     success: true,
     items: posts,
     message: "Data inserted into the database.",
-  });
+  });*/
   //res.status(201).send(posts);
 
   posts2.forEach(async (post) => {
@@ -155,7 +155,7 @@ app.post("/api/search", async (req, res) => {
   //res.status(201).send(entries);
   res.json({
     success: true,
-    items: posts2,
+    items: {posts, posts2},
     message: "NIST Data inserted into the database.",
   });
 });
