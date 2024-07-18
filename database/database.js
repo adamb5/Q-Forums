@@ -1,4 +1,5 @@
 // import mysql from 'mysql2'
+require("dotenv").config();
 const mysql = require("mysql2");
 let pool = null;
 try {
