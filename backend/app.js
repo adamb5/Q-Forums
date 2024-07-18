@@ -69,7 +69,7 @@ app.post("/api/search", async (req, res) => {
   // req.session.tagged = tagged;
   // const tag = req.session.tagged;
   //console.log(tagged);
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_fTwPBMrkm1L3yigJUSHY6BJmy`;
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_fTwPBMrkm1L3yigJUSHY6BJmY`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
   //console.log(posts);
