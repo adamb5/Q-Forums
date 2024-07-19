@@ -36,10 +36,9 @@
   margin-bottom: 0.5rem;
 }
 
-.result-link {
-  color: blue;
-  text-decoration: none;
-  word-break: break-all;
+.result-domain {
+  font-size: 1.1rem;
+  color: #00b4cc;
 }
 
 .show-more {
