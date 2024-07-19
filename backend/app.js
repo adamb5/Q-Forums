@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config({path: '../.env'});
 // const session = require("express-session");
 // const crypto = require("crypto");
 // import express from "express";
