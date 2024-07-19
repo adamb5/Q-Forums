@@ -95,7 +95,6 @@ app.post("/api/search", async (req, res) => {
   posts.forEach(async (post) => {
     const {
       question_id,
-      creation_date,
       score,
       reputation,
       view_count,
@@ -104,6 +103,7 @@ app.post("/api/search", async (req, res) => {
       title,
       body,
     } = post;
+    const creation_date = new Date(post.creation_date * 1000);
     // const {tag} = tagged;
     await tools.postEntry(
       question_id,
