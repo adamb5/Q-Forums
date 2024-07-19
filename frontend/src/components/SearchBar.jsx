@@ -57,7 +57,7 @@ const SearchBar = ({ setResults }) => {
             data.tagged.includes(value)
           )
         });
-        //console.log(results);
+        console.log(results);
         results.sort((a, b) => b.creation_date - a.creation_date);
         console.log(Object.keys(results).length);
         setResults(results);
