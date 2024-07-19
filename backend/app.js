@@ -62,7 +62,10 @@ app.get("/data", async (req, res) => {
 });
 
 //api key stackoverflow
-//const api_key = `${process.env.QFORUMS_STACKOVERFLOW_API_KEY}`;
+const api_key = process.env.QFORUMS_STACKOVERFLOW_API_KEY;
+
+//api key NIST
+const NIST_api_key = process.env.QFORUMS_NIST_API_KEY;
 
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
@@ -70,17 +73,16 @@ app.post("/api/search", async (req, res) => {
   // req.session.tagged = tagged;
   // const tag = req.session.tagged;
   //console.log(tagged);
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_fTwPBMrkm1L3yigJUSHY6BJmY`;
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=${api_key}`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
   
   const apiUrlNIST = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${tagged}`
-  const response2 = await axios.get(apiUrlNIST);
-  /* {
+  const response2 = await axios.get(apiUrlNIST, {
     headers: {
-      //"x-api-key": "1a431999-68dd-44ad-8d4f-b06cc0bb2e82"
+      "x-api-key": "1a431999-68dd-44ad-8d4f-b06cc0bb2e82"
     }
-  })*/
+  })
   const posts2 = response2.data.vulnerabilities;
   //console.log(posts);
   console.log(tag);
