@@ -54,7 +54,7 @@ const SearchBar = ({ setResults }) => {
         const results = json.filter((data) => {
           return (
             value &&
-            data.tagged.toLowerCase().includes(value)
+            data.tagged.includes(value)
           )
         });
         //console.log(results);
