@@ -58,7 +58,7 @@ const SearchBar = ({ setResults }) => {
           )
         });
         console.log(results);
-        results.sort((a, b) => b.creation_date - a.creation_date);
+        results.sort((a, b) => new Date(b.creation_date) - new Date(a.creation_date));
         console.log(Object.keys(results).length);
         setResults(results);
       });
