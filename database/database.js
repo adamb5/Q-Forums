@@ -1,14 +1,15 @@
 // import mysql from 'mysql2'
-require("dotenv").config();
+require("dotenv").config({path: '../.env'});
 const mysql = require("mysql2");
+// console.log(process.env);
 let pool = null;
 try {
   pool = mysql
     .createPool({
-      host: "q-forums-db.cv884y2g2fxo.us-east-1.rds.amazonaws.com",
+      host: process.env.DATABASE_HOST, // "q-forums-db.cv884y2g2fxo.us-east-1.rds.amazonaws.com",
       port: "3306",
-      user: "admin",
-      password: "qforumspassword",
+      user: process.env.DATABASE_USER, // "admin",
+      password: process.env.DATABASE_PASSWORD, // "qforumspassword",
       database: "q-forums-db",
       multipleStatements: true,
     })
