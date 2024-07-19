@@ -68,3 +68,33 @@
   outline: none;
   box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
 }
+
+.buttonContainer {
+  display: flex;
+  margin-right: 10px;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.button {
+  background-color: white;
+  border: 2px solid transparent; /* Initially transparent border */
+  color: #00b4cc;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button:last-child {
+  margin-right: 0; /* Remove right margin from last button */
+}
+
+.button.active {
+  background-color: #00b4cc; /* Filled background when active */
+  border-color: #00b4cc; /* Colored border when active */
+  color: white; /* White text when active */
+}
