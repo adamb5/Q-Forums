@@ -73,6 +73,15 @@ app.post("/api/search", async (req, res) => {
   const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=rl_fTwPBMrkm1L3yigJUSHY6BJmY`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
+  
+  const apiUrlNIST = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${tagged}`
+  const response2 = await axios.get(apiUrlNIST);
+  /* {
+    headers: {
+      //"x-api-key": "1a431999-68dd-44ad-8d4f-b06cc0bb2e82"
+    }
+  })*/
+  const posts2 = response2.data.vulnerabilities;
   //console.log(posts);
   console.log(tag);
 
@@ -109,13 +118,50 @@ app.post("/api/search", async (req, res) => {
     console.log("THE DB POST IS WORKING");
   });
   //res.status(201).send(entries);
-  res.json({
+  /*res.json({
     success: true,
     items: posts,
     message: "Data inserted into the database.",
-  });
+  });*/
   //res.status(201).send(posts);
+
+  posts2.forEach(async (post) => {
+    const question_id = post.cve.id;
+    const creation_date = post.cve.published;
+    const score = 0;
+    const reputation = 0;
+    const view_count = 0;
+    const answer_count = 0;
+    const link = "";
+    const title = post.cve.descriptions[0].value;
+    const body = post.cve.descriptions[0].value;
+
+    // const {tag} = tagged;
+    await tools.postEntry(
+      question_id,
+      creation_date,
+      score,
+      reputation,
+      view_count,
+      answer_count,
+      link,
+      title,
+      body,
+      tag
+      // tag
+    );
+    console.log("THE NIST DB POST IS WORKING");
+  });
+  //res.status(201).send(entries);
+  res.json({
+    success: true,
+    items: {posts, posts2},
+    message: "NIST Data inserted into the database.",
+  });
 });
+
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
