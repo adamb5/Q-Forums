@@ -69,16 +69,45 @@
   box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
 }
 
-.buttonContainer {
+.buttonContainerWrapper {
   display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.buttonContainer {
+  display: inline-block;
   margin-right: 10px;
   justify-content: flex-end;
   margin-bottom: 10px;
+  border: 2px solid #00b4cc; /* Border around the container */
+  border-radius: 4px; /* Rounded corners for the container */
+  overflow: hidden;
+}
+
+.buttonContainer > button {
+  background-color: white;
+  color: #00b4cc;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border: none; /* No border on individual buttons */
+  outline: none; /* Remove outline on button focus */
+  justify-content: flex-end;
+}
+
+.buttonContainer > button.active {
+  background-color: #00b4cc; /* Filled background when active */
+  color: white; /* White text when active */
+  justify-content: flex-end;
 }
 
 .button {
   background-color: white;
-  border: 2px solid transparent; /* Initially transparent border */
+  border: 2px solid #00b4cc; /* Initially transparent border */
   color: #00b4cc;
   padding: 10px 20px;
   text-align: center;
@@ -86,11 +115,19 @@
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0;
+  border-left-width: 0;
+  outline: none;
+}
+
+.button:first-child {
+  border-top-left-radius: 4px; /* Restore top-left border radius for first button */
+  border-bottom-left-radius: 4px; /* Restore bottom-left border radius for first button */
 }
 
 .button:last-child {
-  margin-right: 0; /* Remove right margin from last button */
+  border-top-right-radius: 4px; /* Restore top-right border radius for last button */
+  border-bottom-right-radius: 4px;
 }
 
 .button.active {

@@ -42,19 +42,21 @@ const Results = ({ results }) => {
 
   return (
     <React.Fragment>
-      <div className="buttonContainer">
-        <button
-          className={sortBy === "date" ? "button active" : "button"}
-          onClick={() => handleSort("date")}
-        >
-          Date
-        </button>
-        <button
-          className={sortBy === "views" ? "button active" : "button"}
-          onClick={() => handleSort("views")}
-        >
-          Views
-        </button>
+      <div className="buttonContainerWrapper">
+        <div className="buttonContainer">
+          <button
+            className={sortBy === "date" ? "button active" : "button"}
+            onClick={() => handleSort("date")}
+          >
+            Date
+          </button>
+          <button
+            className={sortBy === "views" ? "button active" : "button"}
+            onClick={() => handleSort("views")}
+          >
+            Views
+          </button>
+        </div>
       </div>
       <div className="results">
         {results.slice(0, visibleResults).map((result) => {
