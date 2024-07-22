@@ -106,6 +106,7 @@ app.post("/api/search", async (req, res) => {
     const creation_date = new Date(post.creation_date * 1000);
     const current_date = new Date();
     let suspicious = 0; //false is 0
+    console.log(current_date.getHours + " - " + creation_date.getHours + " = " + current_date.getHours - creation_date.getHours);
     if(current_date.getHours - creation_date.getHours <= 168 && view_count >= 300){
       suspicious = 1; //true is 1
     }
