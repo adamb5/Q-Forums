@@ -70,7 +70,9 @@ const Results = ({ results }) => {
               className="result-item-link"
             >
               <div className="result-item">
-                <div className="result-title">{result.title}</div>
+                <div className="result-title">{result.title} 
+                  {result.suspicious === 1 && <span style={{color:"red", marginLeft:"5px"}}> 🚩 </span>}
+                </div>
                 <div className="result-domain">
                   {domain ? `Source: ${domain}` : "No source available"}
                 </div>

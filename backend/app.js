@@ -104,6 +104,12 @@ app.post("/api/search", async (req, res) => {
       body,
     } = post;
     const creation_date = new Date(post.creation_date * 1000);
+    const current_date = new Date();
+    let suspicious = 0; //false is 0
+    if(current_date.getHours - creation_date.getHours <= 168 && view_count >= 300){
+      suspicious = 1; //true is 1
+    }
+  
     // const {tag} = tagged;
     await tools.postEntry(
       question_id,
@@ -115,7 +121,8 @@ app.post("/api/search", async (req, res) => {
       link,
       title,
       body,
-      tag
+      tag,
+      suspicious
       // tag
     );
     console.log("THE DB POST IS WORKING");
@@ -138,6 +145,7 @@ app.post("/api/search", async (req, res) => {
     const link = "https://www.nist.gov/";
     const title = post.cve.descriptions[0].value;
     const body = post.cve.descriptions[0].value;
+    const suspicious = 0; //false is 0
 
     // const {tag} = tagged;
     await tools.postEntry(
@@ -150,7 +158,8 @@ app.post("/api/search", async (req, res) => {
       link,
       title,
       body,
-      tag
+      tag,
+      suspicious
       // tag
     );
     console.log("THE NIST DB POST IS WORKING");
