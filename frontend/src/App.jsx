@@ -31,6 +31,9 @@ function App() {
               </div>
             }
           />
+          <Route path="*">
+            <Navigate to="/" />
+          </Route>
 
           {/* Add other routes here as needed */}
         </Routes>
