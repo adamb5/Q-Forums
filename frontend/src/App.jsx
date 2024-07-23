@@ -21,9 +21,7 @@ function App() {
             path="/results"
             element={<ResultsPage results={results} setResults={setResults} />}
           />
-          <Route path="*">
-            <Navigate to="/" />
-          </Route>
+          <Route path="*" />
           <Route
             path="/"
             element={
