@@ -21,6 +21,9 @@ function App() {
             path="/results"
             element={<ResultsPage results={results} setResults={setResults} />}
           />
+          <Route path="*">
+            <Navigate to="/" />
+          </Route>
           <Route
             path="/"
             element={
@@ -31,9 +34,6 @@ function App() {
               </div>
             }
           />
-          <Route path="*">
-            <Navigate to="/" />
-          </Route>
 
           {/* Add other routes here as needed */}
         </Routes>
