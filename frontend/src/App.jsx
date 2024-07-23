@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
+import { Route, Switch, BrowserRouter, Navigate } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import About from "./components/About";
 import Contact from "./components/Contact";
@@ -14,7 +14,7 @@ function App() {
     <React.Fragment>
       <BrowserRouter>
         <NavBar />
-        <Routes>
+        <Switch>
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route
@@ -31,10 +31,10 @@ function App() {
               </div>
             }
           />
+          <Navigate to="/" />
 
           {/* Add other routes here as needed */}
-        </Routes>
-        <Navigate to="/" />
+        </Switch>
       </BrowserRouter>
     </React.Fragment>
   );
