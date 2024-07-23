@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Route, Routes, BrowserRouter, Redirect } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import About from "./components/About";
 import Contact from "./components/Contact";
@@ -31,10 +32,10 @@ function App() {
               </div>
             }
           />
-          <Redirect to="/" />
 
           {/* Add other routes here as needed */}
         </Routes>
+        <Redirect to="/" />
       </BrowserRouter>
     </React.Fragment>
   );
