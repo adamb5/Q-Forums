@@ -31,10 +31,10 @@ function App() {
               </div>
             }
           />
-          <Navigate to="/" />
 
           {/* Add other routes here as needed */}
         </Routes>
+        <Navigate to="/" />
       </BrowserRouter>
     </React.Fragment>
   );
