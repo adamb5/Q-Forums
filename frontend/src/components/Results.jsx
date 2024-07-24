@@ -42,14 +42,14 @@ const Results = ({ results }) => {
 
   const getLabelClass = (label) => {
     switch (label) {
-      case 'question':
-        return 'label-box label-question';
-      case 'vulnerability':
-        return 'label-box label-vulnerability';
-      case 'bug':
-        return 'label-box label-bug';
+      case "question":
+        return "label-box label-question";
+      case "vulnerability":
+        return "label-box label-vulnerability";
+      case "bug":
+        return "label-box label-bug";
       default:
-        return 'label-box';
+        return "label-box";
     }
   };
 
@@ -83,9 +83,17 @@ const Results = ({ results }) => {
               className="result-item-link"
             >
               <div className="result-item">
-                <div className="result-title">{result.title} 
-                  {result.suspicious === 1 && <span style={{color:"red", marginLeft:"5px"}}> 🚩 </span>}
-                  <span className={getLabelClass(result.label)}>{result.label}</span>
+                <div className="result-title">
+                  <span className={getLabelClass(result.label)}>
+                    {result.label}
+                  </span>
+                  {result.title}
+                  {result.suspicious === 1 && (
+                    <span style={{ color: "red", marginLeft: "5px" }}>
+                      {" "}
+                      🚩{" "}
+                    </span>
+                  )}
                 </div>
                 <div className="result-domain">
                   {domain ? `Source: ${domain}` : "No source available"}
