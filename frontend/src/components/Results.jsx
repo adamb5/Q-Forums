@@ -40,6 +40,19 @@ const Results = ({ results }) => {
     results.sort((a, b) => b.view_count - a.view_count);
   };
 
+  const getLabelClass = (label) => {
+    switch (label) {
+      case 'question':
+        return 'label-box label-question';
+      case 'vulnerability':
+        return 'label-box label-vulnerability';
+      case 'bug':
+        return 'label-box label-bug';
+      default:
+        return 'label-box';
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="buttonContainerWrapper">
@@ -72,6 +85,7 @@ const Results = ({ results }) => {
               <div className="result-item">
                 <div className="result-title">{result.title} 
                   {result.suspicious === 1 && <span style={{color:"red", marginLeft:"5px"}}> 🚩 </span>}
+                  <span className={getLabelClass(result.label)}>{result.label}</span>
                 </div>
                 <div className="result-domain">
                   {domain ? `Source: ${domain}` : "No source available"}

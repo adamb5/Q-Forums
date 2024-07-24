@@ -135,3 +135,26 @@
   border-color: #00b4cc; /* Colored border when active */
   color: white; /* White text when active */
 }
+
+.label-box {
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.label-question {
+  background-color: green;
+  color: white;
+}
+
+.label-vulnerability {
+  background-color: red;
+  color: white;
+}
+
+.label-bug {
+  background-color: yellow;
+  color: black;
+}

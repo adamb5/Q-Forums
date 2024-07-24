@@ -110,7 +110,8 @@ app.post("/api/search", async (req, res) => {
     if(current_time - post.creation_date <= 604835 && view_count >= 300){
       suspicious = 1; //true is 1
     }
-  
+    
+    const label = 'question';
     // const {tag} = tagged;
     await tools.postEntry(
       question_id,
@@ -123,7 +124,8 @@ app.post("/api/search", async (req, res) => {
       title,
       body,
       tag,
-      suspicious
+      suspicious,
+      label
       // tag
     );
     console.log("THE DB POST IS WORKING");
@@ -147,6 +149,7 @@ app.post("/api/search", async (req, res) => {
     const title = post.cve.descriptions[0].value;
     const body = post.cve.descriptions[0].value;
     const suspicious = 0; //false is 0
+    const label = 'vulnerability';
 
     // const {tag} = tagged;
     await tools.postEntry(
@@ -160,7 +163,8 @@ app.post("/api/search", async (req, res) => {
       title,
       body,
       tag,
-      suspicious
+      suspicious,
+      label
       // tag
     );
     console.log("THE NIST DB POST IS WORKING");
