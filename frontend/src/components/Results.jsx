@@ -25,8 +25,8 @@ const Results = ({ results }) => {
 
     if (criteria === "date") {
       sortByDate();
-    } else if (criteria === "views") {
-      sortByViews();
+    } else if (criteria === "type") {
+      sortByType();
     }
   };
 
@@ -36,8 +36,14 @@ const Results = ({ results }) => {
     );
   };
 
-  const sortByViews = () => {
-    results.sort((a, b) => b.view_count - a.view_count);
+  const sortByType = () => {
+    const rank = {
+      'vulnerability': 1,
+      'bug': 2,
+      'question': 3
+    }
+
+    results.sort((a, b) => (rank[a.label] || 4) - (rank[b.label] || 4));
   };
 
   const getLabelClass = (label) => {
@@ -64,10 +70,10 @@ const Results = ({ results }) => {
             Date
           </button>
           <button
-            className={sortBy === "views" ? "button active" : "button"}
-            onClick={() => handleSort("views")}
+            className={sortBy === "type" ? "button active" : "button"}
+            onClick={() => handleSort("type")}
           >
-            Views
+            Type
           </button>
         </div>
       </div>
