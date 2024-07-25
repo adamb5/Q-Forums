@@ -41,6 +41,13 @@
   color: #00b4cc;
 }
 
+.type-dropdown {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .show-more {
   margin-top: 1rem;
   display: flex;

@@ -7,6 +7,8 @@ const Results = ({ results }) => {
 
   const [sortBy, setSortBy] = useState("date");
 
+  const [selectedType, setSelectedType] = useState("all");
+
   const showMoreResults = () => {
     setVisibleResults((prevVisibleResults) => prevVisibleResults + 25);
   };
@@ -24,6 +26,7 @@ const Results = ({ results }) => {
     setSortBy(criteria);
 
     if (criteria === "date") {
+      setSelectedType("all");
       sortByDate();
     } else if (criteria === "type") {
       sortByType();
@@ -38,10 +41,10 @@ const Results = ({ results }) => {
 
   const sortByType = () => {
     const rank = {
-      'vulnerability': 1,
-      'bug': 2,
-      'question': 3
-    }
+      vulnerability: 1,
+      bug: 2,
+      question: 3,
+    };
 
     results.sort((a, b) => (rank[a.label] || 4) - (rank[b.label] || 4));
   };
@@ -59,6 +62,15 @@ const Results = ({ results }) => {
     }
   };
 
+  const handleTypeChange = (event) => {
+    setSelectedType(event.target.value);
+  };
+
+  const filteredResults =
+    selectedType === "all"
+      ? results
+      : results.filter((result) => result.label === selectedType);
+
   return (
     <React.Fragment>
       <div className="buttonContainerWrapper">
@@ -75,10 +87,22 @@ const Results = ({ results }) => {
           >
             Type
           </button>
+          {sortBy === "type" && (
+            <select
+              className="type-dropdown"
+              value={selectedType}
+              onChange={handleTypeChange}
+            >
+              <option value="all">All</option>
+              <option value="vulnerability">Vulnerability</option>
+              <option value="question">Question</option>
+              <option value="bug">Bug</option>
+            </select>
+          )}
         </div>
       </div>
       <div className="results">
-        {results.slice(0, visibleResults).map((result) => {
+        {filteredResults.slice(0, visibleResults).map((result) => {
           const domain = getDomain(result.link);
           return (
             <a
