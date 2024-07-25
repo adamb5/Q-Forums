@@ -1,3 +1,4 @@
+/* DEPRECATED
 const axios = require("axios");
 
 const getFormResults = (req, res, next) => {
@@ -57,3 +58,4 @@ exports.getResult = getResult;
 // }
 
 // fetchData();
+*/
