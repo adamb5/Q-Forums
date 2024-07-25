@@ -62,6 +62,12 @@ const SearchBar = ({ setResults }) => {
         );
         console.log(Object.keys(results).length);
         setResults(results);
+        /*
+        const current_time = Math.floor(new Date().getTime()/1000); //seconds
+        const dateOneYear = current_time - 31536000;
+        console.log("cur time" + " " + current_time);
+        console.log("one ear time" + " " + dateOneYear);
+        */
       });
 
     //const data = await response.json();
