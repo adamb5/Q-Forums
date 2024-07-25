@@ -80,7 +80,7 @@ app.post("/api/search", async (req, res) => {
   console.log("cur time" + " " + current_time);
   console.log("one ear time" + " " + dateOneYear);
 
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&fromdate=${dateOneYear}order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=${api_key}`;
+  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&fromdate=${dateOneYear}&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=${api_key}`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
   
