@@ -1,5 +1,5 @@
 const express = require("express");
-require("dotenv").config({path: '../.env'});
+require("dotenv").config({ path: "../.env" });
 // const session = require("express-session");
 // const crypto = require("crypto");
 // import express from "express";
@@ -74,7 +74,7 @@ app.post("/api/search", async (req, res) => {
   // req.session.tagged = tagged;
   // const tag = req.session.tagged;
   //console.log(tagged);
-  const current_time = Math.floor(new Date().getTime()/1000); //seconds
+  const current_time = Math.floor(new Date().getTime() / 1000); //seconds
   const dateOneYear = current_time - 31536000;
   console.log("tagged: " + tagged);
   console.log("cur time" + " " + current_time);
@@ -83,13 +83,13 @@ app.post("/api/search", async (req, res) => {
   const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&fromdate=${dateOneYear}&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=${api_key}`;
   const response = await axios.get(apiUrl);
   const posts = response.data.items;
-  
-  const apiUrlNIST = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${tagged}`
+
+  const apiUrlNIST = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${tagged}`;
   const response2 = await axios.get(apiUrlNIST, {
     headers: {
-      "x-api-key": NIST_api_key
-    }
-  })
+      "x-api-key": NIST_api_key,
+    },
+  });
   const posts2 = response2.data.vulnerabilities;
   //console.log(posts);
   console.log(tag);
@@ -110,14 +110,14 @@ app.post("/api/search", async (req, res) => {
       body,
     } = post;
     const creation_date = new Date(post.creation_date * 1000);
-    const current_time = Math.floor(new Date().getTime()/1000);
+    const current_time = Math.floor(new Date().getTime() / 1000);
     let suspicious = 0; //false is 0
-    
-    if(current_time - post.creation_date <= 604835 && view_count >= 300){
+
+    if (current_time - post.creation_date <= 604835 && view_count >= 300) {
       suspicious = 1; //true is 1
     }
-    
-    const label = 'question';
+
+    const label = "question";
     // const {tag} = tagged;
     await tools.postEntry(
       question_id,
@@ -155,7 +155,7 @@ app.post("/api/search", async (req, res) => {
     const title = post.cve.descriptions[0].value;
     const body = post.cve.descriptions[0].value;
     const suspicious = 0; //false is 0
-    const label = 'vulnerability';
+    const label = "vulnerability";
 
     // const {tag} = tagged;
     await tools.postEntry(
@@ -178,17 +178,16 @@ app.post("/api/search", async (req, res) => {
   //res.status(201).send(entries);
   res.json({
     success: true,
-    items: {posts, posts2},
+    items: { posts, posts2 },
     message: "NIST Data inserted into the database.",
   });
 });
-
-
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const stackRoutes = require("./stack-routes");
 app.use("/stack", stackRoutes);
-
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
 app.listen(5000);
