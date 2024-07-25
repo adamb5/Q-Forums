@@ -13,7 +13,7 @@ const getFormResults = (req, res, next) => {
 
 const getResult = (request, response, next) => {
   const tagged = request.params.tagged;
-  console.log("tagged: " + tagged);
+  //console.log(dateOneYear);
   for (let i = 0; i < 4; i++) {
     axios
       .get(
