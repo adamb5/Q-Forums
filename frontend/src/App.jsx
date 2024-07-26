@@ -32,7 +32,7 @@ function App() {
               </div>
             }
           />
-
+          <Route path="*" element={<Navigate to="/" replace />} />
           {/* Add other routes here as needed */}
         </Routes>
       </BrowserRouter>
