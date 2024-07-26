@@ -97,6 +97,12 @@ app.post("/api/search", async (req, res) => {
   //pool.query(`INSERT `)
 
   //await tools.truncateTable();
+  async function getPrediction(text) {
+    const response = await axios.post('http://q-forums.com/predict', { text });
+    console.log(response.data.prediction);
+  }
+
+  getPrediction("The configuration tools (1) config.sh in Unix or (2) config.cmd in Windows for BEA WebLogic Server 8.1 through SP2 create a log file that contains the administrative username and password in cleartext, which could allow local users to gain privileges. configuration tool 1 configsh unix 2 configcmd window bea weblogic server 81 sp2 create log file contains administrative username password cleartext could allow local user gain privilege")
 
   posts.forEach(async (post) => {
     const {
