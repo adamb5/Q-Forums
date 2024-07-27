@@ -98,7 +98,7 @@ app.post("/api/search", async (req, res) => {
 
   //await tools.truncateTable();
   async function getPrediction(text) {
-    const response = await axios.post('http://q-forums.com/predict', { text });
+    const response = await axios.post('http://localhost:5001/predict', { text });
     console.log(response.data.prediction);
   }
 
