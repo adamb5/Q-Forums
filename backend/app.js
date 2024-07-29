@@ -98,7 +98,7 @@ app.post("/api/search", async (req, res) => {
 
   //await tools.truncateTable();
   async function getPrediction(text) {
-    const response = await axios.post('http://127.0.0.1:5001/predict', { text });
+    const response = await axios.post('http://209.104.252.130:5001/predict', { text });
     console.log(response.data.prediction);
   }
 
