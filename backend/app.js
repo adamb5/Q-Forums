@@ -69,7 +69,7 @@ const api_key = process.env.QFORUMS_STACKOVERFLOW_API_KEY;
 const NIST_api_key = process.env.QFORUMS_NIST_API_KEY;
 
 async function getPrediction(text) {
-  const response = await axios.post('https://06e0-2605-6440-4000-c001-00-8ef8.ngrok-free.app/predict', { text });
+  const response = await axios.post('https://localhost:5001/predict', { text: text });
   console.log(response.data.prediction);
   return response.data.prediction
 }
