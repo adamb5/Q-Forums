@@ -70,12 +70,12 @@ const NIST_api_key = process.env.QFORUMS_NIST_API_KEY;
 
 async function getPrediction(text) {
   try {
-  const response = await axios.post('https://localhost:5001/predict', { text });
+  const response = await axios.post('https://413d-2605-6440-4002-1001-00-a707.ngrok-free.app/predict', { text });
   console.log(response.data.prediction);
   return response.data.prediction;
   } catch (error){
     console.log(error);
-    return null;
+    return "vulnerability";
   }
 }
 
@@ -181,9 +181,9 @@ app.post("/api/search", async (req, res) => {
     const title = post.cve.descriptions[0].value;
     const body = post.cve.descriptions[0].value;
     const suspicious = 0; //false is 0
-    //const label = "vulnerability";
-    const text = title.concat(body);
-    const label = await getPrediction(text);
+    const label = "vulnerability";
+    // const text = title.concat(body);
+    // const label = await getPrediction(text);
     console.log(label);
 
     // const {tag} = tagged;
