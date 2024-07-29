@@ -68,6 +68,15 @@ const api_key = process.env.QFORUMS_STACKOVERFLOW_API_KEY;
 //api key NIST
 const NIST_api_key = process.env.QFORUMS_NIST_API_KEY;
 
+async function getPrediction(text) {
+  const response = await axios.post('http://localhost:5001/predict', { text });
+  console.log(response.data.prediction);
+  return response.data.prediction
+}
+
+// const prediction = getPrediction("i would like install r on my laptop mac o x version 1073 i downloaded the last version and i double click on it and it wa installed when i start up i get the following error i searched in internet but i could not solve the problem any help would be appreciated the error are during startup warning message 1 setting lcctype failed using c 2 setting lccollate failed using c 3 setting lctime failed using c 4 setting lcmessages failed using c 5 setting lcpaper failed using c rapp gui 150 6126 x8664appledarwin980 warning youre using a nonutf8 locale therefore only ascii character will work please read r for mac o x faq see help section 9 and adjust your system preference accordingly history restored from usersnemorapphistory");
+// console.log(prediction);
+
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
   const tag = tagged;
@@ -97,12 +106,14 @@ app.post("/api/search", async (req, res) => {
   //pool.query(`INSERT `)
 
   //await tools.truncateTable();
-  async function getPrediction(text) {
-    const response = await axios.post('http://209.104.252.130:5001/predict', { text });
-    console.log(response.data.prediction);
-  }
+  // async function getPrediction(text) {
+  //   const response = await axios.post('http://localhost:5001/predict', { text });
+  //   console.log(response.data.prediction);
+  //   return response.data.prediction
+  // }
 
-  getPrediction("The configuration tools (1) config.sh in Unix or (2) config.cmd in Windows for BEA WebLogic Server 8.1 through SP2 create a log file that contains the administrative username and password in cleartext, which could allow local users to gain privileges. configuration tool 1 configsh unix 2 configcmd window bea weblogic server 81 sp2 create log file contains administrative username password cleartext could allow local user gain privilege")
+  // const prediction = getPrediction("The configuration tools (1) config.sh in Unix or (2) config.cmd in Windows for BEA WebLogic Server 8.1 through SP2 create a log file that contains the administrative username and password in cleartext, which could allow local users to gain privileges. configuration tool 1 configsh unix 2 configcmd window bea weblogic server 81 sp2 create log file contains administrative username password cleartext could allow local user gain privilege");
+  // console.log(prediction);
 
   posts.forEach(async (post) => {
     const {
@@ -123,7 +134,10 @@ app.post("/api/search", async (req, res) => {
       suspicious = 1; //true is 1
     }
 
-    const label = "question";
+    const text = title.concat(body);
+
+    const label = getPrediction(text);
+    console.log(label);
     // const {tag} = tagged;
     await tools.postEntry(
       question_id,
@@ -161,7 +175,9 @@ app.post("/api/search", async (req, res) => {
     const title = post.cve.descriptions[0].value;
     const body = post.cve.descriptions[0].value;
     const suspicious = 0; //false is 0
-    const label = "vulnerability";
+    const text = title.concat(body);
+    const label = getPrediction(text);
+    console.log(label);
 
     // const {tag} = tagged;
     await tools.postEntry(
