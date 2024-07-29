@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 import json
 
 app = Flask(__name__)
+CORS(app)
 
 # Load model and tokenizer from the directory
 model_dir = './model'
