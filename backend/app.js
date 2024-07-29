@@ -70,7 +70,7 @@ const NIST_api_key = process.env.QFORUMS_NIST_API_KEY;
 
 async function getPrediction(text) {
   try {
-  const response = await axios.post('https://localhost:5001/predict', { text: text });
+  const response = await axios.post('https://localhost:5001/predict', { text });
   console.log(response.data.prediction);
   return response.data.prediction;
   } catch (error){
