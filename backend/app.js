@@ -136,9 +136,9 @@ app.post("/api/search", async (req, res) => {
 
     const text = title.concat(body);
 
-    // const label = getPrediction(text);
-    // console.log(label);
-    const label = "question";
+    const label = await getPrediction(text);
+    console.log(label);
+    //const label = "question";
     // const {tag} = tagged;
     await tools.postEntry(
       question_id,
@@ -176,9 +176,9 @@ app.post("/api/search", async (req, res) => {
     const title = post.cve.descriptions[0].value;
     const body = post.cve.descriptions[0].value;
     const suspicious = 0; //false is 0
-    const label = "vulnerability";
-    // const text = title.concat(body);
-    // const label = getPrediction(text);
+    //const label = "vulnerability";
+    const text = title.concat(body);
+    const label = await getPrediction(text);
     console.log(label);
 
     // const {tag} = tagged;
