@@ -166,3 +166,9 @@
   background-color: yellow;
   color: black;
 }
+
+.read-more {
+  color: #00b4cc;
+  cursor: pointer;
+  font-style: italic;
+}
