@@ -14,7 +14,14 @@ const Results = ({ initialResults }) => {
 
     ws.onmessage = (event) => {
       const newResult = JSON.parse(event.data);
-      setResults((prevResults) => [...prevResults, newResult]);
+      setResults((prevResults) => {
+        const updatedResults = [...prevResults, newResult];
+        // Check if updatedResults have elements to set loading to false
+        if (updatedResults.length > 0) {
+          setLoading(false);
+        }
+        return updatedResults;
+      });
     };
 
     return () => {
