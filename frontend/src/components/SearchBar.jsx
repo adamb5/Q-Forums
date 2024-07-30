@@ -47,8 +47,9 @@ const SearchBar = ({ setResults }) => {
       },
       body: JSON.stringify({ tagged: value }),
     });
+    const result = await response;
 
-    if (response){
+    if (result){
     await fetch(`http://q-forums.com/data`)
       .then((response) => response.json())
       .then((json) => {
