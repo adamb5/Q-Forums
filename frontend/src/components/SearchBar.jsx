@@ -50,7 +50,7 @@ const SearchBar = ({ setResults }) => {
     const pollForData = async () => {
       let dataReady = false;
       while (!dataReady) {
-        const response = await fetch(`http://q-forums.com/api/ready`);
+        const response = await fetch(`http://q-forums.com/api/data-ready`);
         const result = await response.json();
         dataReady = result.ready;
         if (!dataReady) {
