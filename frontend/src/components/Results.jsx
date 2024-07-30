@@ -9,25 +9,19 @@ const Results = ({ results }) => {
   const [expandedTitles, setExpandedTitles] = useState({});
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const ws = new WebSocket("ws://q-forums.com");
+  useEffect(() => {
+    const ws = new WebSocket("ws://q-forums.com:5000");
 
-  //   ws.onmessage = (event) => {
-  //     const newResult = JSON.parse(event.data);
-  //     setResults((prevResults) => {
-  //       const updatedResults = [...prevResults, newResult];
-  //       // Check if updatedResults have elements to set loading to false
-  //       if (updatedResults.length > 0) {
-  //         setLoading(false);
-  //       }
-  //       return updatedResults;
-  //     });
-  //   };
+    ws.onmessage = (event) => {
+      const newResult = JSON.parse(event.data);
+      setResults((prevResults) => [...prevResults, newResult]);
+      setLoading(false); // Stop loading if we receive at least one result
+    };
 
-  //   return () => {
-  //     ws.close();
-  //   };
-  // }, []);
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   useEffect(() => {
     if (results.length > 0) {

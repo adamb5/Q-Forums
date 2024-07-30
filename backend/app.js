@@ -6,13 +6,10 @@ require("dotenv").config({ path: "../.env" });
 const bodyParser = require("body-parser");
 const axios = require("axios");
 
-const { v4: uuidv4 } = require("uuid");
 const WebSocket = require("ws");
 const tools = require("../database/database.js");
 // import { getEntry } from "../database/database.js";
 const app = express();
-
-const random_uuid = uuidv4();
 
 //Session Management
 // const secretKey = crypto.randomBytes(32).toString('hex');
@@ -336,10 +333,6 @@ app.post("/api/search", async (req, res) => {
 //     message: "NIST Data inserted into the database.",
 //   });
 // });
-
-app.get("/api/data-ready", (req, res) => {
-  res.json({ ready: stack_done });
-});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
