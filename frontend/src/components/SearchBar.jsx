@@ -47,38 +47,25 @@ const SearchBar = ({ setResults }) => {
       },
       body: JSON.stringify({ tagged: value }),
     });
-    const pollForData = async () => {
-      let dataReady = false;
-      while (!dataReady) {
-        const response = await fetch(`http://q-forums.com/api/data-ready`);
-        const result = await response.json();
-        dataReady = result.ready;
-        if (!dataReady) {
-          await new Promise(resolve => setTimeout(resolve, 1000)); // wait 1 second
-        }
-      }
 
-      await fetch(`http://q-forums.com/data`)
-        .then((response) => response.json())
-        .then((json) => {
-          const results = json.filter((data) => {
-            return value && data.tagged.includes(value);
-          });
-          results.sort(
-            (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
-          );
-          console.log(Object.keys(results).length);
-          setResults(results);
-          /*
+    await fetch(`http://q-forums.com/data`)
+      .then((response) => response.json())
+      .then((json) => {
+        const results = json.filter((data) => {
+          return value && data.tagged.includes(value);
+        });
+        results.sort(
+          (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
+        );
+        console.log(Object.keys(results).length);
+        setResults(results);
+        /*
           const current_time = Math.floor(new Date().getTime()/1000); //seconds
           const dateOneYear = current_time - 31536000;
           console.log("cur time" + " " + current_time);
           console.log("one ear time" + " " + dateOneYear);
           */
-        });
-      };
-
-      pollForData();
+      });
 
     //const data = await response.json();
     //console.log(data.items);

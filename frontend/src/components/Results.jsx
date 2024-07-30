@@ -14,6 +14,19 @@ const Results = ({ results }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const ws = new WebSocket("ws://q-forums.com");
+
+    ws.onmessage = (event) => {
+      const newResult = JSON.parse(event.data);
+      setResults((prevResults) => [...prevResults, newResult]);
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  useEffect(() => {
     if (results.length > 0) {
       setLoading(false);
       if (sortBy === "date") {

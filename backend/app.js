@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const axios = require("axios");
 
 const { v4: uuidv4 } = require("uuid");
-
+const WebSocket = require("ws");
 const tools = require("../database/database.js");
 // import { getEntry } from "../database/database.js";
 const app = express();
@@ -25,6 +25,27 @@ const random_uuid = uuidv4();
 // }));
 
 app.use(express.json());
+
+//WebSocket
+const server = require("http").createServer(app);
+const wss = new WebSocket.Server({ server });
+
+const clients = [];
+
+wss.on("connection", (ws) => {
+  clients.push(ws);
+  ws.on("close", () => {
+    clients.splice(clients.indexOf(ws), 1);
+  });
+});
+
+const sendEvent = (data) => {
+  clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+};
 
 //EC2
 const path = require("path");
@@ -153,6 +174,8 @@ app.post("/api/search", async (req, res) => {
         suspicious,
         label
       );
+
+      sendEvent(entry);
       console.log("StackOverflow DB post is working");
     });
 
@@ -184,6 +207,8 @@ app.post("/api/search", async (req, res) => {
         suspicious,
         label
       );
+
+      sendEvent(entry);
       console.log("NIST DB post is working");
     });
 
