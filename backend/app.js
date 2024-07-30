@@ -88,7 +88,10 @@ async function set_vul() {
   return "vulnerability";
 }
 
+let stack_done = false;
+
 app.post("/api/search", async (req, res) => {
+  stack_done = false;
   const { tagged } = req.body;
   const tag = tagged;
   // req.session.tagged = tagged;
@@ -125,7 +128,6 @@ app.post("/api/search", async (req, res) => {
 
   // const prediction = getPrediction("The configuration tools (1) config.sh in Unix or (2) config.cmd in Windows for BEA WebLogic Server 8.1 through SP2 create a log file that contains the administrative username and password in cleartext, which could allow local users to gain privileges. configuration tool 1 configsh unix 2 configcmd window bea weblogic server 81 sp2 create log file contains administrative username password cleartext could allow local user gain privilege");
   // console.log(prediction);
-  let stack_done = false;
   await posts.forEach(async (post) => {
     const {
       question_id,
@@ -211,13 +213,16 @@ app.post("/api/search", async (req, res) => {
     console.log("THE NIST DB POST IS WORKING");
   });
   //res.status(201).send(entries);
-  if (stack_done) {
-    res.json({
-      success: true,
-      items: { posts, posts2 },
-      message: "NIST Data inserted into the database.",
-    });
-  }
+  stack_done = true;
+  res.json({
+    success: true,
+    items: { posts, posts2 },
+    message: "NIST Data inserted into the database.",
+  });
+});
+
+app.get("/api/data-ready", (req, res) => {
+  res.json({ ready: stack_done });
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
