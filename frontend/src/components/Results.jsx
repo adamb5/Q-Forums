@@ -9,6 +9,8 @@ const Results = ({ results }) => {
 
   const [selectedType, setSelectedType] = useState("all");
 
+  const [expandedTitles, setExpandedTitles] = useState({});
+
   const showMoreResults = () => {
     setVisibleResults((prevVisibleResults) => prevVisibleResults + 25);
   };
@@ -66,6 +68,18 @@ const Results = ({ results }) => {
     setSelectedType(event.target.value);
   };
 
+  const handleReadMoreClick = (question_id) => {
+    setExpandedTitles((prev) => ({
+      ...prev,
+      [question_id]: !prev[question_id],
+    }));
+  };
+
+  const truncateText = (text, maxLength) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength);
+  };
+
   const filteredResults =
     selectedType === "all"
       ? results
@@ -104,6 +118,10 @@ const Results = ({ results }) => {
       <div className="results">
         {filteredResults.slice(0, visibleResults).map((result) => {
           const domain = getDomain(result.link);
+          const isExpanded = expandedTitles[result.question_id];
+          const displayedTitle = isExpanded
+            ? result.title
+            : truncateText(result.title, 100);
           return (
             <a
               key={result.question_id}
@@ -117,7 +135,18 @@ const Results = ({ results }) => {
                   <span className={getLabelClass(result.label)}>
                     {result.label}
                   </span>
-                  {result.title}
+                  {displayedTitle}
+                  {result.title.length > 100 && (
+                    <span
+                      className="read-more"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleReadMoreClick(result.question_id);
+                      }}
+                    >
+                      {isExpanded ? " Show Less" : " ...Read More"}
+                    </span>
+                  )}
                   {result.suspicious === 1 && (
                     <span style={{ color: "red", marginLeft: "5px" }}>
                       {" "}
