@@ -172,49 +172,48 @@ app.post("/api/search", async (req, res) => {
     message: "Data inserted into the database.",
   });*/
   //res.status(201).send(posts);
-
-  posts2.forEach(async (post) => {
-    const question_id = post.cve.id;
-    const creation_date = post.cve.published;
-    const score = 0;
-    const reputation = 0;
-    const view_count = 0;
-    const answer_count = 0;
-    const link = "https://www.nist.gov/";
-    const title = post.cve.descriptions[0].value;
-    const body = post.cve.descriptions[0].value;
-    const suspicious = 0; //false is 0
-    const label = "vulnerability";
-    // const text = title.concat(body);
-    // const label = await getPrediction(text);
-    console.log(label);
-
-    // const {tag} = tagged;
-    await tools.postEntry(
-      question_id,
-      creation_date,
-      score,
-      reputation,
-      view_count,
-      answer_count,
-      link,
-      title,
-      body,
-      tag,
-      suspicious,
-      label
-      // tag
-    );
-    console.log("THE NIST DB POST IS WORKING");
-  });
-  //res.status(201).send(entries);
   if (stack_done) {
-    res.json({
-      success: true,
-      items: { posts, posts2 },
-      message: "NIST Data inserted into the database.",
+    posts2.forEach(async (post) => {
+      const question_id = post.cve.id;
+      const creation_date = post.cve.published;
+      const score = 0;
+      const reputation = 0;
+      const view_count = 0;
+      const answer_count = 0;
+      const link = "https://www.nist.gov/";
+      const title = post.cve.descriptions[0].value;
+      const body = post.cve.descriptions[0].value;
+      const suspicious = 0; //false is 0
+      const label = "vulnerability";
+      // const text = title.concat(body);
+      // const label = await getPrediction(text);
+      console.log(label);
+
+      // const {tag} = tagged;
+      await tools.postEntry(
+        question_id,
+        creation_date,
+        score,
+        reputation,
+        view_count,
+        answer_count,
+        link,
+        title,
+        body,
+        tag,
+        suspicious,
+        label
+        // tag
+      );
+      console.log("THE NIST DB POST IS WORKING");
     });
   }
+  //res.status(201).send(entries);
+  res.json({
+    success: true,
+    items: { posts, posts2 },
+    message: "NIST Data inserted into the database.",
+  });
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
