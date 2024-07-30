@@ -160,7 +160,7 @@ app.post("/api/search", async (req, res) => {
       const label = await getPrediction(text);
       console.log(label);
 
-      await tools.postEntry(
+      const entry = await tools.postEntry(
         question_id,
         creation_date,
         score,
@@ -193,7 +193,7 @@ app.post("/api/search", async (req, res) => {
       const label = await set_vul();
       console.log(label);
 
-      await tools.postEntry(
+      const entry = await tools.postEntry(
         question_id,
         creation_date,
         score,
