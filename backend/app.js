@@ -103,123 +103,215 @@ app.post("/api/search", async (req, res) => {
   console.log("cur time" + " " + current_time);
   console.log("one ear time" + " " + dateOneYear);
 
-  const apiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&fromdate=${dateOneYear}&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=${api_key}`;
-  const response = await axios.get(apiUrl);
-  const posts = response.data.items;
+  const stackApiUrl = `https://api.stackexchange.com//2.3/search/advanced?&pagesize=100&fromdate=${dateOneYear}&order=asc&sort=relevance&q=${tagged}&wiki=False&site=stackoverflow&filter=withbody&key=${api_key}`;
+  //const response = await axios.get(apiUrl);
+  //const posts = response.data.items;
 
-  const apiUrlNIST = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${tagged}`;
-  const response2 = await axios.get(apiUrlNIST, {
-    headers: {
-      "x-api-key": NIST_api_key,
-    },
-  });
-  const posts2 = response2.data.vulnerabilities;
-  //console.log(posts);
-  console.log(tag);
+  const nistApiUrl = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${tagged}`;
+  try {
+    const [stackResponse, nistResponse] = await Promise.all([
+      axios.get(stackApiUrl),
+      axios.get(nistApiUrl, { headers: { "x-api-key": NIST_api_key } }),
+    ]);
 
-  //pool.query(`INSERT `)
+    const stackPosts = stackResponse.data.items;
+    const nistPosts = nistResponse.data.vulnerabilities;
 
-  //await tools.truncateTable();
-  // async function getPrediction(text) {
-  //   const response = await axios.post('http://localhost:5001/predict', { text });
-  //   console.log(response.data.prediction);
-  //   return response.data.prediction
-  // }
+    const stackPromises = stackPosts.map(async (post) => {
+      const {
+        question_id,
+        score,
+        reputation,
+        view_count,
+        answer_count,
+        link,
+        title,
+        body,
+      } = post;
+      const creation_date = new Date(post.creation_date * 1000);
+      let suspicious = 0; // false is 0
 
-  // const prediction = getPrediction("The configuration tools (1) config.sh in Unix or (2) config.cmd in Windows for BEA WebLogic Server 8.1 through SP2 create a log file that contains the administrative username and password in cleartext, which could allow local users to gain privileges. configuration tool 1 configsh unix 2 configcmd window bea weblogic server 81 sp2 create log file contains administrative username password cleartext could allow local user gain privilege");
-  // console.log(prediction);
-  await posts.forEach(async (post) => {
-    const {
-      question_id,
-      score,
-      reputation,
-      view_count,
-      answer_count,
-      link,
-      title,
-      body,
-    } = post;
-    const creation_date = new Date(post.creation_date * 1000);
-    const current_time = Math.floor(new Date().getTime() / 1000);
-    let suspicious = 0; //false is 0
+      if (current_time - post.creation_date <= 604835 && view_count >= 300) {
+        suspicious = 1; // true is 1
+      }
 
-    if (current_time - post.creation_date <= 604835 && view_count >= 300) {
-      suspicious = 1; //true is 1
-    }
+      const text = title.concat(body);
+      const label = await getPrediction(text);
+      console.log(label);
 
-    const text = title.concat(body);
+      await tools.postEntry(
+        question_id,
+        creation_date,
+        score,
+        reputation,
+        view_count,
+        answer_count,
+        link,
+        title,
+        body,
+        tag,
+        suspicious,
+        label
+      );
+      console.log("StackOverflow DB post is working");
+    });
 
-    const label = await getPrediction(text);
-    console.log(label);
-    //const label = "question";
-    // const {tag} = tagged;
-    await tools.postEntry(
-      question_id,
-      creation_date,
-      score,
-      reputation,
-      view_count,
-      answer_count,
-      link,
-      title,
-      body,
-      tag,
-      suspicious,
-      label
-      // tag
-    );
-    console.log("THE DB POST IS WORKING");
-  });
-  stack_done = true;
-  //res.status(201).send(entries);
-  /*res.json({
-    success: true,
-    items: posts,
-    message: "Data inserted into the database.",
-  });*/
-  //res.status(201).send(posts);
+    const nistPromises = nistPosts.map(async (post) => {
+      const question_id = post.cve.id;
+      const creation_date = post.cve.published;
+      const score = 0;
+      const reputation = 0;
+      const view_count = 0;
+      const answer_count = 0;
+      const link = "https://www.nist.gov/";
+      const title = post.cve.descriptions[0].value;
+      const body = post.cve.descriptions[0].value;
+      const suspicious = 0; // false is 0
+      const label = await set_vul();
+      console.log(label);
 
-  await posts2.forEach(async (post) => {
-    const question_id = post.cve.id;
-    const creation_date = post.cve.published;
-    const score = 0;
-    const reputation = 0;
-    const view_count = 0;
-    const answer_count = 0;
-    const link = "https://www.nist.gov/";
-    const title = post.cve.descriptions[0].value;
-    const body = post.cve.descriptions[0].value;
-    const suspicious = 0; //false is 0
-    //const label = "vulnerability";
-    const label = await set_vul();
-    console.log(label);
+      await tools.postEntry(
+        question_id,
+        creation_date,
+        score,
+        reputation,
+        view_count,
+        answer_count,
+        link,
+        title,
+        body,
+        tag,
+        suspicious,
+        label
+      );
+      console.log("NIST DB post is working");
+    });
 
-    // const {tag} = tagged;
-    await tools.postEntry(
-      question_id,
-      creation_date,
-      score,
-      reputation,
-      view_count,
-      answer_count,
-      link,
-      title,
-      body,
-      tag,
-      suspicious,
-      label
-      // tag
-    );
-    console.log("THE NIST DB POST IS WORKING");
-  });
-  //res.status(201).send(entries);
-  stack_done = true;
-  res.json({
-    success: true,
-    items: { posts, posts2 },
-    message: "NIST Data inserted into the database.",
-  });
+    await Promise.all([...stackPromises, ...nistPromises]);
+
+    stack_done = true;
+    res.json({
+      success: true,
+      items: { stackPosts, nistPosts },
+      message: "Data inserted into the database.",
+    });
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+    res.status(500).send("Error fetching data");
+  }
 });
+// const response2 = await axios.get(apiUrlNIST, {
+//   headers: {
+//     "x-api-key": NIST_api_key,
+//   },
+// });
+// const posts2 = response2.data.vulnerabilities;
+//console.log(posts);
+//console.log(tag);
+
+//pool.query(`INSERT `)
+
+//await tools.truncateTable();
+// async function getPrediction(text) {
+//   const response = await axios.post('http://localhost:5001/predict', { text });
+//   console.log(response.data.prediction);
+//   return response.data.prediction
+// }
+
+// const prediction = getPrediction("The configuration tools (1) config.sh in Unix or (2) config.cmd in Windows for BEA WebLogic Server 8.1 through SP2 create a log file that contains the administrative username and password in cleartext, which could allow local users to gain privileges. configuration tool 1 configsh unix 2 configcmd window bea weblogic server 81 sp2 create log file contains administrative username password cleartext could allow local user gain privilege");
+// console.log(prediction);
+//   await posts.forEach(async (post) => {
+//     const {
+//       question_id,
+//       score,
+//       reputation,
+//       view_count,
+//       answer_count,
+//       link,
+//       title,
+//       body,
+//     } = post;
+//     const creation_date = new Date(post.creation_date * 1000);
+//     const current_time = Math.floor(new Date().getTime() / 1000);
+//     let suspicious = 0; //false is 0
+
+//     if (current_time - post.creation_date <= 604835 && view_count >= 300) {
+//       suspicious = 1; //true is 1
+//     }
+
+//     const text = title.concat(body);
+
+//     const label = await getPrediction(text);
+//     console.log(label);
+//     //const label = "question";
+//     // const {tag} = tagged;
+//     await tools.postEntry(
+//       question_id,
+//       creation_date,
+//       score,
+//       reputation,
+//       view_count,
+//       answer_count,
+//       link,
+//       title,
+//       body,
+//       tag,
+//       suspicious,
+//       label
+//       // tag
+//     );
+//     console.log("THE DB POST IS WORKING");
+//   });
+//   stack_done = true;
+//   //res.status(201).send(entries);
+//   /*res.json({
+//     success: true,
+//     items: posts,
+//     message: "Data inserted into the database.",
+//   });*/
+//   //res.status(201).send(posts);
+
+//   await posts2.forEach(async (post) => {
+//     const question_id = post.cve.id;
+//     const creation_date = post.cve.published;
+//     const score = 0;
+//     const reputation = 0;
+//     const view_count = 0;
+//     const answer_count = 0;
+//     const link = "https://www.nist.gov/";
+//     const title = post.cve.descriptions[0].value;
+//     const body = post.cve.descriptions[0].value;
+//     const suspicious = 0; //false is 0
+//     //const label = "vulnerability";
+//     const label = await set_vul();
+//     console.log(label);
+
+//     // const {tag} = tagged;
+//     await tools.postEntry(
+//       question_id,
+//       creation_date,
+//       score,
+//       reputation,
+//       view_count,
+//       answer_count,
+//       link,
+//       title,
+//       body,
+//       tag,
+//       suspicious,
+//       label
+//       // tag
+//     );
+//     console.log("THE NIST DB POST IS WORKING");
+//   });
+//   //res.status(201).send(entries);
+//   stack_done = true;
+//   res.json({
+//     success: true,
+//     items: { posts, posts2 },
+//     message: "NIST Data inserted into the database.",
+//   });
+// });
 
 app.get("/api/data-ready", (req, res) => {
   res.json({ ready: stack_done });
