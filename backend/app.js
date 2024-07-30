@@ -125,7 +125,7 @@ app.post("/api/search", async (req, res) => {
 
   // const prediction = getPrediction("The configuration tools (1) config.sh in Unix or (2) config.cmd in Windows for BEA WebLogic Server 8.1 through SP2 create a log file that contains the administrative username and password in cleartext, which could allow local users to gain privileges. configuration tool 1 configsh unix 2 configcmd window bea weblogic server 81 sp2 create log file contains administrative username password cleartext could allow local user gain privilege");
   // console.log(prediction);
-
+  let stack_done = false;
   posts.forEach(async (post) => {
     const {
       question_id,
@@ -168,6 +168,7 @@ app.post("/api/search", async (req, res) => {
     );
     console.log("THE DB POST IS WORKING");
   });
+  stack_done = true;
   //res.status(201).send(entries);
   /*res.json({
     success: true,
@@ -210,11 +211,13 @@ app.post("/api/search", async (req, res) => {
     console.log("THE NIST DB POST IS WORKING");
   });
   //res.status(201).send(entries);
-  res.json({
-    success: true,
-    items: { posts, posts2 },
-    message: "NIST Data inserted into the database.",
-  });
+  if (stack_done) {
+    res.json({
+      success: true,
+      items: { posts, posts2 },
+      message: "NIST Data inserted into the database.",
+    });
+  }
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
