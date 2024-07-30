@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/fontawesome-free-solid";
 import { Link } from "react-router-dom";
-import { is_it_done } from "../../../backend/app";
+const { is_it_done } = require("../../../backend/app");
 //import axios from "axios";
 
 import "./SearchBar.css";
