@@ -48,6 +48,7 @@ const SearchBar = ({ setResults }) => {
       body: JSON.stringify({ tagged: value }),
     });
 
+    if (response){
     await fetch(`http://q-forums.com/data`)
       .then((response) => response.json())
       .then((json) => {
@@ -66,6 +67,7 @@ const SearchBar = ({ setResults }) => {
         console.log("one ear time" + " " + dateOneYear);
         */
       });
+    }
 
     //const data = await response.json();
     //console.log(data.items);

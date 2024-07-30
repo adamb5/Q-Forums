@@ -85,7 +85,7 @@ async function getPrediction(text) {
 // console.log(prediction);
 
 async function set_vul() {
-  return "Vulnerability";
+  return "vulnerability";
 }
 
 app.post("/api/search", async (req, res) => {
