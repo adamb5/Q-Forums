@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import "./Results.css";
 
 const Results = ({ results }) => {
+  const [results1, setResults] = useState(results);
+
   const [visibleResults, setVisibleResults] = useState(25);
 
   const [sortBy, setSortBy] = useState("date");
@@ -27,7 +29,7 @@ const Results = ({ results }) => {
   }, []);
 
   useEffect(() => {
-    if (results.length > 0) {
+    if (results1.length > 0) {
       setLoading(false);
       if (sortBy === "date") {
         setSelectedType("all");
@@ -36,7 +38,7 @@ const Results = ({ results }) => {
         sortByType();
       }
     }
-  }, [results, sortBy]);
+  }, [results1, sortBy]);
 
   const showMoreResults = () => {
     setVisibleResults((prevVisibleResults) => prevVisibleResults + 25);
@@ -63,7 +65,7 @@ const Results = ({ results }) => {
   };
 
   const sortByDate = () => {
-    results.sort(
+    results1.sort(
       (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
     );
   };
@@ -75,7 +77,7 @@ const Results = ({ results }) => {
       question: 3,
     };
 
-    results.sort((a, b) => (rank[a.label] || 4) - (rank[b.label] || 4));
+    results1.sort((a, b) => (rank[a.label] || 4) - (rank[b.label] || 4));
   };
 
   const getLabelClass = (label) => {
@@ -109,8 +111,8 @@ const Results = ({ results }) => {
 
   const filteredResults =
     selectedType === "all"
-      ? results
-      : results.filter((result) => result.label === selectedType);
+      ? results1
+      : results1.filter((result) => result.label === selectedType);
 
   return (
     <React.Fragment>
@@ -193,7 +195,7 @@ const Results = ({ results }) => {
             );
           })
         )}
-        {visibleResults < results.length && (
+        {visibleResults < results1.length && (
           <div className="show-more">
             <button onClick={showMoreResults}>Show More</button>
           </div>
