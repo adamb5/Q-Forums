@@ -185,8 +185,7 @@ app.post("/api/search", async (req, res) => {
     const body = post.cve.descriptions[0].value;
     const suspicious = 0; //false is 0
     //const label = "vulnerability";
-    const text = title.concat(body);
-    const label = await getPrediction(text);
+    const label = await getPrediction(body);
     console.log(label);
 
     // const {tag} = tagged;
