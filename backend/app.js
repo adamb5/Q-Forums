@@ -70,10 +70,12 @@ const NIST_api_key = process.env.QFORUMS_NIST_API_KEY;
 
 async function getPrediction(text) {
   try {
-  const response = await axios.post('https://413d-2605-6440-4002-1001-00-a707.ngrok-free.app/predict', { text });
-  console.log(response.data.prediction);
-  return response.data.prediction;
-  } catch (error){
+    const response = await axios.post("https://localhost:5001/predict", {
+      text,
+    });
+    console.log(response.data.prediction);
+    return response.data.prediction;
+  } catch (error) {
     console.log(error);
     return "vulnerability";
   }
