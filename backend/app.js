@@ -70,9 +70,10 @@ const NIST_api_key = process.env.QFORUMS_NIST_API_KEY;
 
 async function getPrediction(text) {
   try {
-    const response = await axios.post("http://localhost:5001/predict", {
-      text,
-    });
+    const response = await axios.post(
+      "https://413d-2605-6440-4002-1001-00-a707.ngrok-free.app/predict",
+      { text }
+    );
     console.log(response.data.prediction);
     return response.data.prediction;
   } catch (error) {
@@ -83,11 +84,6 @@ async function getPrediction(text) {
 
 // const prediction = getPrediction("i would like install r on my laptop mac o x version 1073 i downloaded the last version and i double click on it and it wa installed when i start up i get the following error i searched in internet but i could not solve the problem any help would be appreciated the error are during startup warning message 1 setting lcctype failed using c 2 setting lccollate failed using c 3 setting lctime failed using c 4 setting lcmessages failed using c 5 setting lcpaper failed using c rapp gui 150 6126 x8664appledarwin980 warning youre using a nonutf8 locale therefore only ascii character will work please read r for mac o x faq see help section 9 and adjust your system preference accordingly history restored from usersnemorapphistory");
 // console.log(prediction);
-let stack_done = false;
-
-export function is_it_done() {
-  return stack_done;
-}
 
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
@@ -148,7 +144,7 @@ app.post("/api/search", async (req, res) => {
 
     const text = title.concat(body);
 
-    const label = getPrediction(text);
+    const label = await getPrediction(text);
     console.log(label);
     //const label = "question";
     // const {tag} = tagged;
@@ -169,7 +165,6 @@ app.post("/api/search", async (req, res) => {
     );
     console.log("THE DB POST IS WORKING");
   });
-  stack_done = true;
   //res.status(201).send(entries);
   /*res.json({
     success: true,
