@@ -126,7 +126,7 @@ app.post("/api/search", async (req, res) => {
   // const prediction = getPrediction("The configuration tools (1) config.sh in Unix or (2) config.cmd in Windows for BEA WebLogic Server 8.1 through SP2 create a log file that contains the administrative username and password in cleartext, which could allow local users to gain privileges. configuration tool 1 configsh unix 2 configcmd window bea weblogic server 81 sp2 create log file contains administrative username password cleartext could allow local user gain privilege");
   // console.log(prediction);
   let stack_done = false;
-  posts.forEach(async (post) => {
+  await posts.forEach(async (post) => {
     const {
       question_id,
       score,
@@ -177,7 +177,7 @@ app.post("/api/search", async (req, res) => {
   });*/
   //res.status(201).send(posts);
 
-  posts2.forEach(async (post) => {
+  await posts2.forEach(async (post) => {
     const question_id = post.cve.id;
     const creation_date = post.cve.published;
     const score = 0;
