@@ -84,6 +84,10 @@ async function getPrediction(text) {
 // const prediction = getPrediction("i would like install r on my laptop mac o x version 1073 i downloaded the last version and i double click on it and it wa installed when i start up i get the following error i searched in internet but i could not solve the problem any help would be appreciated the error are during startup warning message 1 setting lcctype failed using c 2 setting lccollate failed using c 3 setting lctime failed using c 4 setting lcmessages failed using c 5 setting lcpaper failed using c rapp gui 150 6126 x8664appledarwin980 warning youre using a nonutf8 locale therefore only ascii character will work please read r for mac o x faq see help section 9 and adjust your system preference accordingly history restored from usersnemorapphistory");
 // console.log(prediction);
 
+async function set_vul() {
+  return "Vulnerability";
+}
+
 app.post("/api/search", async (req, res) => {
   const { tagged } = req.body;
   const tag = tagged;
@@ -184,7 +188,7 @@ app.post("/api/search", async (req, res) => {
     const body = post.cve.descriptions[0].value;
     const suspicious = 0; //false is 0
     //const label = "vulnerability";
-    const label = await getPrediction(body);
+    const label = await set_vul();
     console.log(label);
 
     // const {tag} = tagged;
