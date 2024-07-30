@@ -11,6 +11,20 @@ const Results = ({ results }) => {
 
   const [expandedTitles, setExpandedTitles] = useState({});
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (results.length > 0) {
+      setLoading(false);
+      if (sortBy === "date") {
+        setSelectedType("all");
+        sortByDate();
+      } else if (sortBy === "type") {
+        sortByType();
+      }
+    }
+  }, [results, sortBy]);
+
   const showMoreResults = () => {
     setVisibleResults((prevVisibleResults) => prevVisibleResults + 25);
   };
@@ -27,12 +41,12 @@ const Results = ({ results }) => {
   const handleSort = (criteria) => {
     setSortBy(criteria);
 
-    if (criteria === "date") {
-      setSelectedType("all");
-      sortByDate();
-    } else if (criteria === "type") {
-      sortByType();
-    }
+    // if (criteria === "date") {
+    //   setSelectedType("all");
+    //   sortByDate();
+    // } else if (criteria === "type") {
+    //   sortByType();
+    // }
   };
 
   const sortByDate = () => {
@@ -116,52 +130,56 @@ const Results = ({ results }) => {
         </div>
       </div>
       <div className="results">
-        {filteredResults.slice(0, visibleResults).map((result) => {
-          const domain = getDomain(result.link);
-          const isExpanded = expandedTitles[result.question_id];
-          const displayedTitle = isExpanded
-            ? result.title
-            : truncateText(result.title, 100);
-          return (
-            <a
-              key={result.question_id}
-              href={result.link || "#"}
-              target={result.link ? "_blank" : "self"}
-              rel={result.link ? "noreferrer" : ""}
-              className="result-item-link"
-            >
-              <div className="result-item">
-                <div className="result-title">
-                  <span className={getLabelClass(result.label)}>
-                    {result.label}
-                  </span>
-                  {displayedTitle}
-                  {result.title.length > 100 && (
-                    <span
-                      className="read-more"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleReadMoreClick(result.question_id);
-                      }}
-                    >
-                      {isExpanded ? " Show Less" : " ...Read More"}
+        {loading ? (
+          <div className="loading">Loading...</div>
+        ) : (
+          filteredResults.slice(0, visibleResults).map((result) => {
+            const domain = getDomain(result.link);
+            const isExpanded = expandedTitles[result.question_id];
+            const displayedTitle = isExpanded
+              ? result.title
+              : truncateText(result.title, 100);
+            return (
+              <a
+                key={result.question_id}
+                href={result.link || "#"}
+                target={result.link ? "_blank" : "self"}
+                rel={result.link ? "noreferrer" : ""}
+                className="result-item-link"
+              >
+                <div className="result-item">
+                  <div className="result-title">
+                    <span className={getLabelClass(result.label)}>
+                      {result.label}
                     </span>
-                  )}
-                  {result.suspicious === 1 && (
-                    <span style={{ color: "red", marginLeft: "5px" }}>
-                      {" "}
-                      🚩{" "}
-                    </span>
-                  )}
+                    {displayedTitle}
+                    {result.title.length > 100 && (
+                      <span
+                        className="read-more"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleReadMoreClick(result.question_id);
+                        }}
+                      >
+                        {isExpanded ? " Show Less" : " ...Read More"}
+                      </span>
+                    )}
+                    {result.suspicious === 1 && (
+                      <span style={{ color: "red", marginLeft: "5px" }}>
+                        {" "}
+                        🚩{" "}
+                      </span>
+                    )}
+                  </div>
+                  <div className="result-domain">
+                    {domain ? `Source: ${domain}` : "No source available"}
+                  </div>
+                  {/* <div>{result.body}</div> */}
                 </div>
-                <div className="result-domain">
-                  {domain ? `Source: ${domain}` : "No source available"}
-                </div>
-                {/* <div>{result.body}</div> */}
-              </div>
-            </a>
-          );
-        })}
+              </a>
+            );
+          })
+        )}
         {visibleResults < results.length && (
           <div className="show-more">
             <button onClick={showMoreResults}>Show More</button>

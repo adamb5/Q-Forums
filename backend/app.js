@@ -192,7 +192,6 @@ app.post("/api/search", async (req, res) => {
     stack_done = true;
     res.json({
       success: true,
-      items: { stackPosts, nistPosts },
       message: "Data inserted into the database.",
     });
   } catch (error) {
