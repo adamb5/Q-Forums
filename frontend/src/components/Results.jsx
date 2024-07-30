@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from "react";
 import "./Results.css";
 
-const Results = ({ initialResults }) => {
-  const [results, setResults] = useState(initialResults || []);
+const Results = ({ results }) => {
+  //const [results, setResults] = useState(initialResults || []);
   const [visibleResults, setVisibleResults] = useState(25);
   const [sortBy, setSortBy] = useState("date");
   const [selectedType, setSelectedType] = useState("all");
   const [expandedTitles, setExpandedTitles] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const ws = new WebSocket("ws://q-forums.com");
+  // useEffect(() => {
+  //   const ws = new WebSocket("ws://q-forums.com");
 
-    ws.onmessage = (event) => {
-      const newResult = JSON.parse(event.data);
-      setResults((prevResults) => {
-        const updatedResults = [...prevResults, newResult];
-        // Check if updatedResults have elements to set loading to false
-        if (updatedResults.length > 0) {
-          setLoading(false);
-        }
-        return updatedResults;
-      });
-    };
+  //   ws.onmessage = (event) => {
+  //     const newResult = JSON.parse(event.data);
+  //     setResults((prevResults) => {
+  //       const updatedResults = [...prevResults, newResult];
+  //       // Check if updatedResults have elements to set loading to false
+  //       if (updatedResults.length > 0) {
+  //         setLoading(false);
+  //       }
+  //       return updatedResults;
+  //     });
+  //   };
 
-    return () => {
-      ws.close();
-    };
-  }, []);
+  //   return () => {
+  //     ws.close();
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (results.length > 0) {
