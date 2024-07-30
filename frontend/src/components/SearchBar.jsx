@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/fontawesome-free-solid";
 import { Link } from "react-router-dom";
+import { is_it_done } from "../../../backend/app";
 //import axios from "axios";
 
 import "./SearchBar.css";
@@ -47,28 +48,26 @@ const SearchBar = ({ setResults }) => {
       },
       body: JSON.stringify({ tagged: value }),
     });
-
-    await fetch(`http://q-forums.com/data`)
-      .then((response) => response.json())
-      .then((json) => {
-        const results = json.filter((data) => {
-          return (
-            value &&
-            data.tagged.includes(value)
-          )
-        });
-        results.sort(
-          (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
-        );
-        console.log(Object.keys(results).length);
-        setResults(results);
-        /*
+    if (is_it_done) {
+      await fetch(`http://q-forums.com/data`)
+        .then((response) => response.json())
+        .then((json) => {
+          const results = json.filter((data) => {
+            return value && data.tagged.includes(value);
+          });
+          results.sort(
+            (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
+          );
+          console.log(Object.keys(results).length);
+          setResults(results);
+          /*
         const current_time = Math.floor(new Date().getTime()/1000); //seconds
         const dateOneYear = current_time - 31536000;
         console.log("cur time" + " " + current_time);
         console.log("one ear time" + " " + dateOneYear);
         */
-      });
+        });
+    }
 
     //const data = await response.json();
     //console.log(data.items);
@@ -104,7 +103,7 @@ const SearchBar = ({ setResults }) => {
       <form className="search">
         <input
           type="text"
-          method= 'POST'
+          method="POST"
           className="searchTerm"
           placeholder="What are you looking for?"
           value={input}
