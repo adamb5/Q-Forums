@@ -209,11 +209,13 @@ app.post("/api/search", async (req, res) => {
     });
   }
   //res.status(201).send(entries);
-  res.json({
-    success: true,
-    items: { posts, posts2 },
-    message: "NIST Data inserted into the database.",
-  });
+  if (stack_done) {
+    res.json({
+      success: true,
+      items: { posts, posts2 },
+      message: "NIST Data inserted into the database.",
+    });
+  }
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
