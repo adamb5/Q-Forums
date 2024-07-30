@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Results.css";
 
-const Results = ({ results }) => {
-  //const [results, setResults] = useState(initialResults || []);
+const Results = ({ initialResults }) => {
+  const [results, setResults] = useState(initialResults);
   const [visibleResults, setVisibleResults] = useState(25);
   const [sortBy, setSortBy] = useState("date");
   const [selectedType, setSelectedType] = useState("all");

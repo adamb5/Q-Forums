@@ -10,7 +10,7 @@ const ResultsPage = ({ results, setResults }) => {
       <div className="results-bar">
         <SearchBar setResults={setResults} />
       </div>
-      <Results results={results} />
+      <Results initialResults={results} />
     </React.Fragment>
   );
 };
