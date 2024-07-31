@@ -9,7 +9,9 @@ CORS(app)
 
 # Load model and tokenizer from the directory
 model_dir = './model'
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = BertForSequenceClassification.from_pretrained(model_dir)
+model.to(device)
 tokenizer = BertTokenizer.from_pretrained(model_dir)
 
 @app.route('/predict', methods=['POST'])
