@@ -135,154 +135,83 @@ app.post("/api/search", async (req, res) => {
     const stackPosts = stackResponse.data.items;
     const nistPosts = nistResponse.data.vulnerabilities;
 
-    // const stackPromises = stackPosts.map(async (post) => {
-    //   const {
-    //     question_id,
-    //     score,
-    //     reputation,
-    //     view_count,
-    //     answer_count,
-    //     link,
-    //     title,
-    //     body,
-    //   } = post;
-    //   const creation_date = new Date(post.creation_date * 1000);
-    //   let suspicious = 0; // false is 0
+    const stackPromises = stackPosts.map(async (post) => {
+      const {
+        question_id,
+        score,
+        reputation,
+        view_count,
+        answer_count,
+        link,
+        title,
+        body,
+      } = post;
+      const creation_date = new Date(post.creation_date * 1000);
+      let suspicious = 0; // false is 0
 
-    //   if (current_time - post.creation_date <= 604835 && view_count >= 300) {
-    //     suspicious = 1; // true is 1
-    //   }
+      if (current_time - post.creation_date <= 604835 && view_count >= 300) {
+        suspicious = 1; // true is 1
+      }
 
-    //   const text = title.concat(body);
-    //   const label = await getPrediction(text);
-    //   console.log(label);
+      const text = title.concat(body);
+      const label = await getPrediction(text);
+      console.log(label);
 
-    //   const entry = await tools.postEntry(
-    //     question_id,
-    //     creation_date,
-    //     score,
-    //     reputation,
-    //     view_count,
-    //     answer_count,
-    //     link,
-    //     title,
-    //     body,
-    //     tag,
-    //     suspicious,
-    //     label
-    //   );
+      const entry = await tools.postEntry(
+        question_id,
+        creation_date,
+        score,
+        reputation,
+        view_count,
+        answer_count,
+        link,
+        title,
+        body,
+        tag,
+        suspicious,
+        label
+      );
 
-    //   sendEvent(entry);
-    //   console.log("StackOverflow DB post is working");
-    // });
+      sendEvent(entry);
+      console.log("StackOverflow DB post is working");
+    });
 
-    // const nistPromises = nistPosts.map(async (post) => {
-    //   const question_id = post.cve.id;
-    //   const creation_date = post.cve.published;
-    //   const score = 0;
-    //   const reputation = 0;
-    //   const view_count = 0;
-    //   const answer_count = 0;
-    //   const link = "https://www.nist.gov/";
-    //   const title = post.cve.descriptions[0].value;
-    //   const body = post.cve.descriptions[0].value;
-    //   const suspicious = 0; // false is 0
-    //   const label = await set_vul();
-    //   console.log(label);
+    const nistPromises = nistPosts.map(async (post) => {
+      const question_id = post.cve.id;
+      const creation_date = post.cve.published;
+      const score = 0;
+      const reputation = 0;
+      const view_count = 0;
+      const answer_count = 0;
+      const link = "https://www.nist.gov/";
+      const title = post.cve.descriptions[0].value;
+      const body = post.cve.descriptions[0].value;
+      const suspicious = 0; // false is 0
+      const label = await set_vul();
+      console.log(label);
 
-    //   const entry = await tools.postEntry(
-    //     question_id,
-    //     creation_date,
-    //     score,
-    //     reputation,
-    //     view_count,
-    //     answer_count,
-    //     link,
-    //     title,
-    //     body,
-    //     tag,
-    //     suspicious,
-    //     label
-    //   );
+      const entry = await tools.postEntry(
+        question_id,
+        creation_date,
+        score,
+        reputation,
+        view_count,
+        answer_count,
+        link,
+        title,
+        body,
+        tag,
+        suspicious,
+        label
+      );
 
-    //   sendEvent(entry);
-    //   console.log("NIST DB post is working");
-    // });
+      sendEvent(entry);
+      console.log("NIST DB post is working");
+    });
 
-    // await Promise.all([...stackPromises, ...nistPromises]);
-    const allPosts = [
-      ...stackPosts.map(async (post) => {
-        const {
-          question_id,
-          score,
-          reputation,
-          view_count,
-          answer_count,
-          link,
-          title,
-          body,
-        } = post;
-        const creation_date = new Date(post.creation_date * 1000);
-        let suspicious = 0;
+    await Promise.all([...stackPromises, ...nistPromises]);
 
-        if (current_time - post.creation_date <= 604835 && view_count >= 300) {
-          suspicious = 1;
-        }
-
-        const text = title.concat(body);
-        const label = await getPrediction(text);
-
-        const entry = await tools.postEntry(
-          question_id,
-          creation_date,
-          score,
-          reputation,
-          view_count,
-          answer_count,
-          link,
-          title,
-          body,
-          tag,
-          suspicious,
-          label
-        );
-
-        sendEvent(entry); // Send event via WebSocket
-      }),
-      ...nistPosts.map(async (post) => {
-        const question_id = post.cve.id;
-        const creation_date = post.cve.published;
-        const score = 0;
-        const reputation = 0;
-        const view_count = 0;
-        const answer_count = 0;
-        const link = "https://www.nist.gov/";
-        const title = post.cve.descriptions[0].value;
-        const body = post.cve.descriptions[0].value;
-        const suspicious = 0;
-        const label = await set_vul();
-
-        const entry = await tools.postEntry(
-          question_id,
-          creation_date,
-          score,
-          reputation,
-          view_count,
-          answer_count,
-          link,
-          title,
-          body,
-          tag,
-          suspicious,
-          label
-        );
-
-        sendEvent(entry); // Send event via WebSocket
-      }),
-    ];
-
-    await Promise.all(allPosts);
-    //stack_done = true;
+    stack_done = true;
     res.json({
       success: true,
       message: "Data inserted into the database.",
