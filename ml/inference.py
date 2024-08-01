@@ -20,7 +20,8 @@ def predict():
     inputs = tokenizer(data['text'], truncation=True, padding=True, return_tensors='pt')
     with torch.no_grad():
         outputs = model(**inputs)
-        predicted_class = torch.argmax(outputs.logits, dim=1).item()
+        result = outputs.cpu().toList()
+        predicted_class = torch.argmax(result.logits, dim=1).item()
     label_map = {0: 'vulnerability', 1: 'bug', 2: 'question'}
     prediction = label_map.get(predicted_class, 'unknown')
     return jsonify({'prediction': prediction})
