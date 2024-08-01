@@ -18,9 +18,9 @@ tokenizer = BertTokenizer.from_pretrained(model_dir)
 def predict():
     data = request.json
     inputs = tokenizer(data['text'], truncation=True, padding=True, return_tensors='pt')
+    inputs = {key: value.to(device) for key, value in inputs.items()}
     with torch.no_grad():
         outputs = model(**inputs)
-        result = outputs.cpu().toList()
         predicted_class = torch.argmax(result.logits, dim=1).item()
     label_map = {0: 'vulnerability', 1: 'bug', 2: 'question'}
     prediction = label_map.get(predicted_class, 'unknown')
