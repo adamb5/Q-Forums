@@ -21,7 +21,7 @@ def predict():
     inputs = {key: value.to(device) for key, value in inputs.items()}
     with torch.no_grad():
         outputs = model(**inputs)
-        predicted_class = torch.argmax(result.logits, dim=1).item()
+        predicted_class = torch.argmax(outputs.logits, dim=1).item()
     label_map = {0: 'vulnerability', 1: 'bug', 2: 'question'}
     prediction = label_map.get(predicted_class, 'unknown')
     return jsonify({'prediction': prediction})
