@@ -40,6 +40,10 @@ const SearchBar = ({ setResults }) => {
   const searchHandler = async (value) => {
     //event.preventDefault();
     console.log("made it to event handler");
+
+    setResults([]);
+    setLoading(true);
+
     const response = await fetch(`http://q-forums.com/api/search`, {
       method: "POST",
       headers: {
@@ -59,6 +63,7 @@ const SearchBar = ({ setResults }) => {
         );
         console.log(Object.keys(results).length);
         setResults(results);
+        setLoading(false);
         /*
           const current_time = Math.floor(new Date().getTime()/1000); //seconds
           const dateOneYear = current_time - 31536000;

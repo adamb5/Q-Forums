@@ -38,6 +38,8 @@ const Results = ({ results }) => {
       } else if (sortBy === "type") {
         sortByType();
       }
+    } else {
+      setLoading(true);
     }
   }, [results, sortBy]);
 
