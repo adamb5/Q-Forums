@@ -1,7 +1,7 @@
-import { React, useState } from "react";
+import React from "react";
 import Results from "./Results";
 import SearchBar from "./SearchBar";
-
+import { useState } from "react";
 import "./ResultsSearchBar.css";
 
 const ResultsPage = ({ results, setResults }) => {
