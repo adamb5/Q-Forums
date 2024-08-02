@@ -59,6 +59,7 @@ module.exports = {
     suspicious,
     label
   ) {
+
     //pool.query(`TRUNCATE TABLE stack_exchange`)
     const [result] = await pool.query(
       `INSERT IGNORE INTO stack_exchange (question_id, creation_date, score, reputation, view_count, answer_count, link, title, body, tagged, suspicious, label) 
@@ -79,6 +80,20 @@ module.exports = {
       ]
     );
     return result;
+  },
+
+  checkAndTruncateTable: async function () {
+    try {
+      const [rows] = await pool.query("SELECT COUNT(*) AS count FROM stack_exchange");
+      const rowCount = rows[0].count;
+  
+      if (rowCount >= 5000) {
+        await pool.query("TRUNCATE TABLE stack_exchange");
+        console.log("Table truncated as it had 5000 or more rows.");
+      }
+    } catch (error) {
+      console.error("Error checking or truncating table:", error);
+    }
   },
 };
 // export async function getEntry() {

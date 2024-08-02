@@ -110,6 +110,7 @@ async function set_vul() {
 
 app.post("/api/search", async (req, res) => {
   //stack_done = false;
+  await tools.checkAndTruncateTable();
   const { tagged } = req.body;
   const tag = tagged;
   // req.session.tagged = tagged;
