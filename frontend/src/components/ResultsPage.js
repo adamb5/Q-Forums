@@ -1,8 +1,9 @@
-import React from "react";
+import { React, useState } from "react";
 import Results from "./Results";
 import SearchBar from "./SearchBar";
 
 import "./ResultsSearchBar.css";
+import { useState } from "react";
 
 const ResultsPage = ({ results, setResults }) => {
   const [loading, setLoading] = useState(true);
