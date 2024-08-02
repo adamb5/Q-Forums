@@ -98,6 +98,7 @@ const SearchBar = ({ setResults, setLoading }) => {
     if (input !== "") {
       //handleChange();
       searchHandler(input);
+      setInput("");
     }
   };
 
