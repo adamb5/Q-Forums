@@ -9,6 +9,7 @@ import ResultsPage from "./components/ResultsPage";
 import "./App.css";
 function App() {
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   return (
     <React.Fragment>
@@ -19,7 +20,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route
             path="/results"
-            element={<ResultsPage results={results} setResults={setResults} />}
+            element={<ResultsPage results={results} setResults={setResults} loading={loading} setLoading={setLoading}/>}
           />
           {/* <Route path="*" /> */}
           <Route
@@ -27,7 +28,7 @@ function App() {
             element={
               <div className="App">
                 <h1 className="title">Q-Forums</h1>
-                <SearchBar setResults={setResults} />
+                <SearchBar setResults={setResults} setLoading={setLoading}/>
                 {/* <Results results={results} /> */}
               </div>
             }

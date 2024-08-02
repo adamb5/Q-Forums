@@ -1,11 +1,9 @@
 import React from "react";
 import Results from "./Results";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
 import "./ResultsSearchBar.css";
 
-const ResultsPage = ({ results, setResults }) => {
-  const [loading, setLoading] = useState(true);
+const ResultsPage = ({ results, setResults, loading, setLoading }) => {
   return (
     <React.Fragment>
       <div className="results-bar">
