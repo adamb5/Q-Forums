@@ -17,7 +17,7 @@ import "./SearchBar.css";
 //       });
 //  };
 
-const SearchBar = ({ setResults }) => {
+const SearchBar = ({ setResults, setLoading }) => {
   const [input, setInput] = useState("");
 
   // const fetchData = (value) => {

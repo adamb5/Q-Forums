@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Results.css";
 
-const Results = ({ results }) => {
+const Results = ({ results, loading, setLoading }) => {
   //const [results, setResults] = useState(initialResults || []);
   const [visibleResults, setVisibleResults] = useState(25);
   const [sortBy, setSortBy] = useState("date");
   const [selectedType, setSelectedType] = useState("all");
   const [expandedTitles, setExpandedTitles] = useState({});
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
   //   const ws = new WebSocket("ws://q-forums.com");

@@ -5,12 +5,13 @@ import SearchBar from "./SearchBar";
 import "./ResultsSearchBar.css";
 
 const ResultsPage = ({ results, setResults }) => {
+  const [loading, setLoading] = useState(true);
   return (
     <React.Fragment>
       <div className="results-bar">
-        <SearchBar setResults={setResults} />
+        <SearchBar setResults={setResults} setLoading={setLoading} />
       </div>
-      <Results results={results} />
+      <Results results={results} loading={loading} setLoading={setLoading} />
     </React.Fragment>
   );
 };
