@@ -10,18 +10,35 @@ const Contact = () => {
     alignItems: "center",
   };
 
+  const emailStyle = {
+    color: "white",
+    textDecoration: "underline",
+  };
+
   return (
     <div style={contactStyle}>
-      <h1>QinetiQ US IC-IA Business Unit</h1>
+      <h1>QinetiQ US IMS Business Unit</h1>
       <p>
-        {" "}
-        Adam Brook: adam.brook@us.qinetiq.com, Arpan Das:
-        arpan.das@us.qinetiq.com, Trisha Nittala: trisha.nittala@us.qinetiq.com{" "}
+        <a href="mailto:adam.brook@us.qinetiq.com" style={emailStyle}>
+          Adam Brook: adam.brook@us.qinetiq.com
+        </a>
+        ,{" "}
+        <a href="mailto:arpan.das@us.qinetiq.com" style={emailStyle}>
+          Arpan Das: arpan.das@us.qinetiq.com
+        </a>
+        ,{" "}
+        <a href="mailto:trisha.nittala@us.qinetiq.com" style={emailStyle}>
+          Trisha Nittala: trisha.nittala@us.qinetiq.com
+        </a>
       </p>
       <p>
-        {" "}
-        Samriddhi Kumar: samriddhi.kumar@us.qinetiq.com, Adam Pollak:
-        adam.pollak@us.qinetiq.com{" "}
+        <a href="mailto:samriddhi.kumar@us.qinetiq.com" style={emailStyle}>
+          Samriddhi Kumar: samriddhi.kumar@us.qinetiq.com
+        </a>
+        ,{" "}
+        <a href="mailto:adam.pollak@us.qinetiq.com" style={emailStyle}>
+          Adam Pollak: adam.pollak@us.qinetiq.com
+        </a>
       </p>
     </div>
   );
